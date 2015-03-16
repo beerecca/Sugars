@@ -2,13 +2,13 @@ require('require-dir')('build/tasks');
 
 var gulp = require('gulp');
 var shell = require('gulp-shell');
+var runSequence = require('run-sequence');
 
-gulp.task('serveprod-jpsm', function() {
-    shell.task('npm install jspm');
+gulp.task('jspmdependencies', function() {
     shell.task('node node_modules/jspm/cli.js install -y');
 });
 
-gulp.task('serveprod', ['build', 'serveprod-jpsm'], function() {
+gulp.task('startserver', function() {
     var express = require('express');
     var app = express();
     app.use(express.static(__dirname));
@@ -31,4 +31,13 @@ gulp.task('serveprod', ['build', 'serveprod-jpsm'], function() {
         console.log('                ||     ||');
     });
 
+})
+
+gulp.task('serveprod', function(callback) {
+    return runSequence(
+        'build',
+        'jspmdependencies',
+        'startserver',
+        callback
+    );
 });
