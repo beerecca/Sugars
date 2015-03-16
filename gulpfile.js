@@ -1,6 +1,7 @@
 require('require-dir')('build/tasks');
 
 var gulp = require('gulp');
+var shell = require('gulp-shell');
 
 gulp.task('serveprod-jpsm', function() {
     shell.task('npm install jspm');
