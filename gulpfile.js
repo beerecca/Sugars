@@ -2,7 +2,12 @@ require('require-dir')('build/tasks');
 
 var gulp = require('gulp');
 
-gulp.task('serveprod', ['build'], function() {
+gulp.task('serveprod-jpsm', function() {
+    shell.task('npm install jspm');
+    shell.task('node node_modules/jspm/cli.js install -y');
+});
+
+gulp.task('serveprod', ['build', 'serveprod-jpsm'], function() {
     var express = require('express');
     var app = express();
     app.use(express.static(__dirname));
