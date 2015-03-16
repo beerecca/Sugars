@@ -1,8 +1,6 @@
-# aurelia-skeleton-navigation
+# sugars
 
-This skeleton is part of the [Aurelia](http://www.aurelia.io/) platform. It sets up a standard navigation-style app using gulp to build your ES6 code with the 6to5 compiler. Karma/Jasmine testing is also configured.
-
-> To keep up to date on [Aurelia](http://www.aurelia.io/), please visit and subscribe to [the official blog](http://blog.durandal.io/). If you have questions, we invite you to join us on [our Gitter Channel](https://gitter.im/aurelia/discuss).
+This app is designed to help diabetics manage their everyday lives. It's built with Aurelia and hosted on Heroku.
 
 ## Running The App
 
