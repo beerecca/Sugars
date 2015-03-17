@@ -4,9 +4,7 @@ var gulp = require('gulp');
 var shell = require('gulp-shell');
 var runSequence = require('run-sequence');
 
-gulp.task('jspmdependencies', function() {
-    shell.task('node_modules/.bin/jspm install');
-});
+gulp.task('jspmdependencies', shell.task('jspm install'));
 
 gulp.task('startserver', function() {
     var express = require('express');
