@@ -5,7 +5,7 @@ var shell = require('gulp-shell');
 var runSequence = require('run-sequence');
 
 gulp.task('jspmdependencies', function() {
-    shell.task('node node_modules/jspm/cli.js install -y');
+    shell.task('node_modules/.bin/jspm install');
 });
 
 gulp.task('startserver', function() {
