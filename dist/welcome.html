@@ -2,18 +2,30 @@
   <section>
     <h2>${heading}</h2>
 
-    <form role="form" submit.delegate="welcome()">
+    <form role="form" submit.delegate="welcome()" class="col-md-4">
       <div class="form-group">
-        <label for="fn">First Name</label>
-        <input type="text" value.bind="firstName" class="form-control" id="fn" placeholder="first name">
+        <label for="time">Time</label>
+        <p>${time}</p>
       </div>
       <div class="form-group">
-        <label for="ln">Last Name</label>
-        <input type="text" value.bind="lastName" class="form-control" id="ln" placeholder="last name">
+        <label for="glucose">Glucose Level</label>
+        <input type="number" value.bind="glucose" class="form-control" id="glucose">
       </div>
       <div class="form-group">
-        <label>Full Name</label>
-        <p class="help-block">${fullName}</p>
+        <label for="food">Food</label>
+        <input type="text" value.bind="food" class="form-control" id="food">
+        <label for="quantity">Amount of Food</label>
+        <input type="number" value.bind="quantity" class="form-control" id="quantity">
+        <label for="carbs">Grams of Carbohydrates (${carbs})</label>
+        <input type="range" value.bind="carbs" class="form-control" id="carbs" min="0" step="5">
+      </div>
+      <div class="form-group">
+        <label>Exercise (${exercise})</label>
+        <input type="range" value.bind="exercise" class="form-control" id="exercise" min="0" max="5">
+      </div>
+      <div class="form-group">
+        <label>Short Acting Insulin</label>
+        <input type="number" class="form-control" id="short" placeholder="${short}">
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
