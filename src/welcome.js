@@ -3,7 +3,10 @@ export class Welcome{
     this.heading = 'New Entry';
     this.firstName = 'John';
     this.lastName = 'Doe';
-    this.glucose = 11;
+    this.glucose = 0;
+    this.carbs = 0;
+    this.quantity = 0;
+    this.exercise = 0;
   }
 
   get fullName(){
@@ -19,9 +22,11 @@ export class Welcome{
   }
 
   get short(){
-    //console.log('stuff', this.glucose);
-    //var stuff = parseInt(this.glucose) + parseInt(this.carbs);
-    return this.carbs;
+    var normalAdjust = (parseInt(this.glucose) - 7) / 3,
+        foodAdjust = (parseInt(this.quantity) * parseInt(this.carbs)) / 10,
+        exerciseAdjust = parseInt(this.exercise);
+
+    return `${normalAdjust + foodAdjust - exerciseAdjust}`;
   }
 
 }

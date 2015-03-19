@@ -17,7 +17,7 @@ System.register(["aurelia-router"], function (_export) {
 
           this.router = router;
           this.router.configure(function (config) {
-            config.title = "Sugars";
+            config.title = "Aurelia";
             config.map([{ route: ["", "welcome"], moduleId: "welcome", nav: true, title: "Welcome" }, { route: "flickr", moduleId: "flickr", nav: true }]);
           });
         }
