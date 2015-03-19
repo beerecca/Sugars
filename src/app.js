@@ -5,7 +5,7 @@ export class App {
   constructor(router) {
     this.router = router;
     this.router.configure(config => {
-      config.title = 'Aurelia';
+      config.title = 'Sugars';
       config.map([
         { route: ['','welcome'],  moduleId: 'welcome',      nav: true, title:'Welcome' },
         { route: 'flickr',        moduleId: 'flickr',       nav: true }
