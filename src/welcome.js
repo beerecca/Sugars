@@ -24,9 +24,12 @@ export class Welcome{
   get short(){
     var normalAdjust = (parseInt(this.glucose) - 7) / 3,
         foodAdjust = (parseInt(this.quantity) * parseInt(this.carbs)) / 10,
-        exerciseAdjust = parseInt(this.exercise);
+        exerciseAdjust = parseInt(this.exercise),
+        calculation = Math.round(((normalAdjust + foodAdjust - exerciseAdjust) * 10) / 10);
 
-    return `${normalAdjust + foodAdjust - exerciseAdjust}`;
+        calculation = (calculation < 0) ? 0 : calculation;
+
+    return `${calculation}`;
   }
 
 }
