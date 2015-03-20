@@ -2,21 +2,27 @@
   <section>
     <h2>${heading}</h2>
 
-    <form role="form" submit.delegate="welcome()" class="col-md-4">
+    <form role="form" submit.delegate="entry()" class="col-md-4">
       <div class="form-group">
-        <label for="time">Time</label>
+        <label for="time">Date and Time</label>
         <p>${time}</p>
       </div>
       <div class="form-group">
-        <label for="glucose">Glucose Level</label>
-        <input type="number" value.bind="glucose" class="form-control" id="glucose">
+        <label for="glucose">Glucose Level (${glucose})</label>
+        <input type="range" value.bind="glucose" class="form-control" id="glucose" min="0" max="30" step="0.5">
       </div>
       <div class="form-group">
         <label for="food">Food</label>
-        <input type="text" value.bind="food" class="form-control" id="food">
+        <select class="form-control" value.bind="food" id="food">
+          <option>Pizza</option>
+          <option>Rice</option>
+          <option>Toast</option>
+          <option>Orange</option>
+          <option>Banana</option>
+        </select>
         <label for="quantity">Amount of Food</label>
         <input type="number" value.bind="quantity" class="form-control" id="quantity">
-        <label for="carbs">Grams of Carbohydrates (${carbs})</label>
+        <label for="carbs">Grams of Carbs (${carbs})</label>
         <input type="range" value.bind="carbs" class="form-control" id="carbs" min="0" step="5">
       </div>
       <div class="form-group">

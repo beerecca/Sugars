@@ -7,7 +7,7 @@ export class App {
     this.router.configure(config => {
       config.title = 'Sugars';
       config.map([
-        { route: ['','welcome'],  moduleId: 'welcome',      nav: true, title:'Welcome' },
+        { route: ['','entry'],  moduleId: 'entry',      nav: true, title:'New Entry' },
         { route: 'flickr',        moduleId: 'flickr',       nav: true }
       ]);
     });

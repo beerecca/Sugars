@@ -16,6 +16,7 @@ System.config({
     "aurelia-router": "github:aurelia/router@0.5.5",
     "bootstrap": "github:twbs/bootstrap@3.3.2",
     "font-awesome": "npm:font-awesome@4.3.0",
+    "moment": "github:moment/moment@2.9.0",
     "github:aurelia/binding@0.3.3": {
       "aurelia-dependency-injection": "github:aurelia/dependency-injection@0.4.2",
       "aurelia-metadata": "github:aurelia/metadata@0.3.1",
