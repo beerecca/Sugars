@@ -13,12 +13,8 @@
       </div>
       <div class="form-group">
         <label for="food">Food</label>
-        <select class="form-control" value.bind="food" id="food">
-          <option>Pizza</option>
-          <option>Rice</option>
-          <option>Toast</option>
-          <option>Orange</option>
-          <option>Banana</option>
+        <select class="form-control" id="food">
+          <option repeat.for="foodItem of food">${foodItem.unit}</option>
         </select>
         <label for="quantity">Amount of Food</label>
         <input type="number" value.bind="quantity" class="form-control" id="quantity">

@@ -10,6 +10,23 @@ export class Entry{
     this.quantity = 0;
     this.exercise = 0;
     this.amount = 1;
+    this.food = [
+      pizza : {
+        unit : 'slice',
+        defaultAmount : 1,
+        carbs : 30
+      },
+      rice : {
+        unit : 'cup',
+        defaultAmount : 1,
+        carbs : 40
+      },
+      bread : {
+        unit : 'slice',
+        defaultAmount : 1,
+        carbs : 20
+      }
+    ]
   }
 
   get time(){
