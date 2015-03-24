@@ -6,31 +6,50 @@ export class Entry{
     this.firstName = 'John';
     this.lastName = 'Doe';
     this.glucose = 0;
-    this.carbs = 0;
+    //this.carbs = 0;
     this.quantity = 0;
     this.exercise = 0;
     this.amount = 1;
-    this.food = [
-      pizza : {
+    this.chosenFood =
+      [{
+        name : 'Pizza',
         unit : 'slice',
         defaultAmount : 1,
+        amount : 1,
+        carbs : 30
+      }];
+    this.food = [
+      {
+        name : 'Pizza',
+        unit : 'slice',
+        defaultAmount : 1,
+        amount : 1,
         carbs : 30
       },
-      rice : {
+      {
+        name : 'Rice',
         unit : 'cup',
         defaultAmount : 1,
+        amount : 1,
         carbs : 40
-      },
-      bread : {
+      }, 
+      {
+        name : 'Bread',
         unit : 'slice',
         defaultAmount : 1,
+        amount : 1,
         carbs : 20
       }
-    ]
+    ];
   }
 
   get time(){
     return moment().format("dddd, Do MMMM YYYY, h:mm a");
+  }
+
+  get totalCarbs(){
+    var calculation = parseInt(this.quantity) * parseInt(this.chosenFood.carbs);
+    return `${calculation}`;
   }
 
   get short(){
