@@ -51,7 +51,9 @@
     "require-dir": "^0.1.0",
     "run-sequence": "^1.0.2",
     "vinyl-paths": "^1.0.0",
-    "pg": "~4.3.0"
+    "pg": "~4.3.0",
+    "sequelize": "~2.0.4",
+    "pg-hstore": "~2.3.1"
   },
   "jspm": {
     "dependencies": {
