@@ -17,6 +17,10 @@ gulp.task('startserver', function() {
 
     });
 
+    app.get('/api', function(request, response) {
+        
+    });
+
     app.listen(app.get('port'), function() {
         console.log('Up and running on all cylinders');
         console.log(' _________');
