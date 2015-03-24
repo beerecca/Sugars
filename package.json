@@ -63,7 +63,8 @@
       "aurelia-http-client": "github:aurelia/http-client@^0.4.4",
       "aurelia-router": "github:aurelia/router@^0.5.1",
       "bootstrap": "github:twbs/bootstrap@^3.3.1",
-      "font-awesome": "npm:font-awesome@^4.2.0"
+      "font-awesome": "npm:font-awesome@^4.2.0",
+      "moment": "github:moment/moment@^2.9.0"
     }
   }
 }

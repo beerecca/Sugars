@@ -1,4 +1,6 @@
-export class Welcome{
+import moment from 'moment';
+
+export class Entry{
   constructor(){
     this.heading = 'New Entry';
     this.firstName = 'John';
@@ -7,18 +9,28 @@ export class Welcome{
     this.carbs = 0;
     this.quantity = 0;
     this.exercise = 0;
-  }
-
-  get fullName(){
-    return `${this.firstName} ${this.lastName}`;
-  }
-
-  welcome(){
-    alert(`Welcome, ${this.fullName}!`);
+    this.amount = 1;
+    this.food = [
+      pizza : {
+        unit : 'slice',
+        defaultAmount : 1,
+        carbs : 30
+      },
+      rice : {
+        unit : 'cup',
+        defaultAmount : 1,
+        carbs : 40
+      },
+      bread : {
+        unit : 'slice',
+        defaultAmount : 1,
+        carbs : 20
+      }
+    ]
   }
 
   get time(){
-    return Date();
+    return moment().format("dddd, Do MMMM YYYY, h:mm a");
   }
 
   get short(){
