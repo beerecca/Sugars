@@ -1,8 +1,8 @@
 <template>
-  <section>
+  <section class="container">
     <h2>${heading}</h2>
 
-    <form role="form" submit.delegate="entry()" class="col-md-4">
+    <form role="form" submit.delegate="entry()">
 
       <div class="form-group">
         <label for="time">Date and Time</label>
@@ -14,7 +14,7 @@
         <input type="range" value.bind="glucose" class="form-control glucose" min="0" max="30" step="0.5">
       </div>
 
-      <div class="form-group">
+      <div class="form-group"><!--  bg-info col-xs-12 -->
         <label for="food">Food</label>
         <select selected-item.bind="chosenFood" class="form-control food">
           <option value="default">Select food item:</option>
@@ -31,6 +31,8 @@
         <input type="range" value.bind="chosenFood.carbs" class="form-control carbs" min="0" step="5">
       </div>
 
+      <button type="button" class="btn btn-default">+</button>
+
       <div class="form-group">
         <label>Exercise (${exercise})</label>
         <input type="range" value.bind="exercise" class="form-control exercise" min="0" max="5">
@@ -44,8 +46,8 @@
       <button type="submit" class="btn btn-default">Submit</button>
 
     </form>
-
+    <br>
+    <p>MATHZZ: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${short} units</p> 
   </section>
-<br>
-  <p>MATHZZ: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${short} units</p> 
+
 </template>
