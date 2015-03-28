@@ -17,17 +17,15 @@
       <div class="form-group">
         <label for="food">Food</label>
         <select selected-item.bind="chosenFood" class="form-control food">
+          <option value="default">Select food item:</option>
           <option repeat.for="foodItem of food" value.bind="foodItem.name" model.bind="foodItem">${foodItem.name}</option>
         </select>
 
         <label for="quantity">Amount of Food</label>
-        <input type="number" value.bind="quantity" class="form-control quantity">
+        <input type="number" value.bind="quantity" class="form-control quantity" min="0">
 
-<!--         <label for="carbs">Grams of Carbs (${carbs})</label>
-        <input type="range" value.bind="carbs" class="form-control carbs" min="0" step="5"> -->
-
-        <p>CHOSEN FOOD: ${chosenFood.name}</p>
-        <p>CARBZZZ: ${totalCarbs}</p>
+        <label for="carbs">Grams of Carbs (${chosenFood.carbs})</label>
+        <input type="range" value.bind="chosenFood.carbs" class="form-control carbs" min="0" step="5">
       </div>
 
       <div class="form-group">
@@ -43,5 +41,8 @@
       <button type="submit" class="btn btn-default">Submit</button>
 
     </form>
+
   </section>
+<br>
+  <p>MATHZZ: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${short} units</p> 
 </template>
