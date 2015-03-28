@@ -1,5 +1,8 @@
 var Sequelize = require('sequelize');
-var sequelize = Sequelize('database', 'username', 'password');
+var sequelize = Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD, {
+    host: process.env.DATABASE_URL,
+    dialect: 'postgres'
+});
 
 var User = sequelize.define('user', {
     uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV1, primaryKey: true },   
@@ -47,3 +50,10 @@ User.hasMany(Food, { as: 'Foods' });
 Food.belongsToMany(Entry, { as: "Entries", through: FoodEntry });
 Entry.belongsToMany(Food, { as: "Foods", through: FoodEntry });
 
+sequelize.sync();
+
+module.exports = {
+    User: User,
+    Entry: Entry,
+    FoodEntry: FoodEntry
+};
