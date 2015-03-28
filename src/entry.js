@@ -4,7 +4,7 @@ export class Entry{
   constructor(){
     this.heading = 'New Entry';
     this.glucose = 0;
-    this.quantity = 0;
+    this.quantity = "";
     this.exercise = 0;
     this.chosenFood =
       [{
@@ -42,6 +42,12 @@ export class Entry{
   get totalCarbs(){
     var calculation = parseInt(this.quantity) * parseInt(this.chosenFood.carbs);
     return `${calculation}`;
+  }
+
+  get plural(){
+    if (this.quantity > 1 || this.quantity === 0) {
+      return 's';
+    }
   }
 
   get short(){
