@@ -1,25 +1,8 @@
-var express = require('express');
-var app = express();
-app.use(express.static(__dirname));
-app.set('port', (process.env.PORT || 5000));
+//Run that node like we're ES6'in errything
+var System = require('es6-module-loader').System;
 
-app.get('/', function(request, response) {
-    response.sendFile(__dirname + '/index.html');
+System.import('./index').then(function(index) {
+    index.run(__dirname);
+}).catch(function(err) {
+    console.log(err);
 });
-
-app.get('/api', function(request, response) {
-
-});
-
-app.listen(app.get('port'), function() {
-    console.log('Up and running on all cylinders');
-    console.log(' _________');
-    console.log('< moooooo >');
-    console.log(' ---------');
-    console.log('        \\   ^__^');
-    console.log('         \\  (oo)\\_______');
-    console.log('            (__)\\       )\\/\\');
-    console.log('                ||----w |');
-    console.log('                ||     ||');
-});
-
