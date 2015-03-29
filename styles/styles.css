@@ -45,18 +45,18 @@ section {
 }
 
 .navbar-default {
-    background-color: #DFF0D8;
+    background-color: #EEE;
 }
 
 .navbar-default .navbar-nav>.active>a, 
 .navbar-default .navbar-nav>.active>a:focus, 
 .navbar-default .navbar-nav>.active>a:hover {
-    background-color: #D6E9C6;
+    background-color: #CCC;
 }
 
 .navbar-default .navbar-collapse, 
 .navbar-default .navbar-form {
-    border-color: #DFF0D8;
+    border-color: #CCC;
 }
 
 .navbar-brand {
