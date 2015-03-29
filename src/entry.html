@@ -27,7 +27,7 @@
             <select selected-item.bind="chosenFood" class="form-control food">
               <option value="default">Select food item:</option>
               <option repeat.for="foodItem of food" value.bind="foodItem.name" model.bind="foodItem">${foodItem.name}</option>
-            </select>
+            </select> <!-- autocomplete, and if nothing in the dropdown is selected, disable the unit field, and save the number of carbs and name to db (maybe also pop a field for units) -->
           </div>
 
           <div class="form-group input-group">
