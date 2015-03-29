@@ -1,8 +1,6 @@
 
 import * as api from 'api/handler';
 
-
-
 export function run(appdir) {
     //start the server
     var express = require('express');
@@ -16,9 +14,15 @@ export function run(appdir) {
         response.sendFile(app.dir + '/index.html');
     });
 
-    app.get('/api', function(request, response) {
-        console.log(api.hello());
-        console.log(request);
+    app.get('/api/:call', function(request, response) {
+        console.log(request.params.call);
+        
+        api.handle(request).then(function(result) {
+            response.status(400).json(result);
+        }, function(err) {
+            response.status(200).json({ err: err.message});
+        });
+          
     });
 
     app.listen(app.get('port'), function() {

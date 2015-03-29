@@ -1,5 +1,8 @@
 var Sequelize = require('sequelize');
-var sequelize = Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD, {
+/*
+ * FORSUTH YOU FUCKER. cannot set property 'options' of undefined. Why not you fuck?
+ *
+ * var sequelize = Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD, {
     host: process.env.DATABASE_URL,
     dialect: 'postgres'
 });
@@ -50,10 +53,13 @@ User.hasMany(Food, { as: 'Foods' });
 Food.belongsToMany(Entry, { as: "Entries", through: FoodEntry });
 Entry.belongsToMany(Food, { as: "Foods", through: FoodEntry });
 
-sequelize.sync();
+sequelize.sync();*/
 
-module.exports = {
+
+/*
+ * No, we're not using node modules, lets use some ES6 stuff
+ * module.exports = {
     User: User,
     Entry: Entry,
     FoodEntry: FoodEntry
-};
+};*/
