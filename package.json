@@ -1,22 +1,16 @@
 {
-  "name": "aurelia-skeleton-navigation",
-  "version": "0.9.6",
-  "description": "A starter kit for building a standard navigation-style app with Aurelia.",
-  "keywords": [
-    "aurelia",
-    "navigation",
-    "skeleton"
-  ],
+  "name": "Sugars",
+  "version": "0.0.1",
+  "description": "An app that is designed to help diabetics manage their everyday lives.",
   "homepage": "http://aurelia.io",
   "bugs": {
-    "url": "https://github.com/aurelia/skeleton-navigation/issues"
+    "url": "https://github.com/beerecca/Sugars/issues"
   },
   "license": "MIT",
-  "author": "Rob Eisenberg <rob@bluespire.com> (http://robeisenberg.com/)",
-  "main": "dist/commonjs/index.js",
+  "author": "Rebecca Hill <beerecca@gmail.com>, Ben Naylor <nayben@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "http://github.com/aurelia/skeleton-navigation"
+    "url": "https://github.com/beerecca/Sugars"
   },
   "engines": {
     "node": "0.12.x"
