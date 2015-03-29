@@ -4,15 +4,15 @@ export class Entry{
   constructor(){
     this.heading = 'New Entry';
     this.glucose = 0;
-    this.quantity = "";
+    this.quantity = 0;
     this.exercise = 0;
     this.chosenFood =
-      [{
-        name : 'Pizza',
-        unit : 'slice',
-        amount : 1,
-        carbs : 30
-      }];
+      {
+        name : 'Default',
+        unit : 'unit',
+        amount : 0,
+        carbs : 0
+      };
     this.food = [
       {
         name : 'Pizza',
@@ -60,6 +60,10 @@ export class Entry{
 
 
     return `${calculation}`;
+  }
+
+  addFood(){
+    return alert('adding some foods');
   }
 
 }

@@ -16,7 +16,7 @@ export class Flickr{
     });
   }
 
-  canDeactivate(){
-    return confirm('Are you sure you want to leave?');
-  }
+  // canDeactivate(){
+  //   return confirm('Are you sure you want to leave?');
+  // }
 }

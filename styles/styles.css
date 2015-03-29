@@ -39,3 +39,30 @@ section {
 .pictureDetail {
     max-width: 425px;
 }
+
+.navbar-nav {
+    margin: 0px -15px;
+}
+
+.navbar-default {
+    background-color: #DFF0D8;
+}
+
+.navbar-default .navbar-nav>.active>a, 
+.navbar-default .navbar-nav>.active>a:focus, 
+.navbar-default .navbar-nav>.active>a:hover {
+    background-color: #D6E9C6;
+}
+
+.navbar-default .navbar-collapse, 
+.navbar-default .navbar-form {
+    border-color: #DFF0D8;
+}
+
+.navbar-brand {
+    margin-right: 15px;
+}
+
+
+
+
