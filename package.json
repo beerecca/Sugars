@@ -2,7 +2,7 @@
   "name": "Sugars",
   "version": "0.0.1",
   "description": "An app that is designed to help diabetics manage their everyday lives.",
-  "homepage": "http://aurelia.io",
+  "homepage": "http://sugars.herokuapp.com",
   "bugs": {
     "url": "https://github.com/beerecca/Sugars/issues"
   },
