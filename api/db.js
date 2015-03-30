@@ -1,65 +1,71 @@
 var Sequelize = require('sequelize');
-/*
- * FORSUTH YOU FUCKER. cannot set property 'options' of undefined. Why not you fuck?
- *
- * var sequelize = Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USERNAME, process.env.DATABASE_PASSWORD, {
-    host: process.env.DATABASE_URL,
-    dialect: 'postgres'
-});
 
-var User = sequelize.define('user', {
-    uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV1, primaryKey: true },   
-    firstName: DataTypes.STRING(255),               
-    lastName: DataTypes.STRING(255),
-    authLoginType: DataTypes.STRING(32),
-    //dailyLongActingUnits: DataType.DECIMAL(8, 3),
-    unitType: DataTypes.STRING(32),
-    glLow: DataTypes.DECIMAL(8,3),                  //low range on Glucose Level (in unitType)
-    glHigh: DataTypes.DECIMAL(8,3),                 //high range of Glucose Level (in unitType)
-    carbsPerUnit: DataType.DECIMAL(8,3),    
-    godMode: DataType.BOOLEAN,
+export class DB {
+    
+    constructor() {
+        this.__db_connstring = process.env.DATABASE_URL;
+    }
 
-    //Auth implementations for later use
-    authEmail: DataTypes.STRING(255),
-    authFacebook: DataTypes.STRING(255),
-    authGoogle: DataTypes.STRING(255),
-    authOAuth: DataTypes.STRING(255)
-});
+    /*constructor(properties) {
+        console.log('testing3');
+        this.__db_connstring = (properties.dbConnString === undefined)?process.env.DATABASE_URL:properties.dbConnString;
+        console.log('testing4');
+    }*/
 
-var Food = sequelize.define('food', {
-    name: DataTypes.STRING(255),                    //Name              e.g. Pizza
-    unit: DataTypes.STRING(255),                    //Unit type,        e.g. Slice
-    carbs: DataTypes.INTEGER,                       //Carbs per unit    e.g. 30
-    defaultAmount: DataTypes.INTEGER                //Default           e.g. 1 (as in one slice)
-});
+    init() {
+        return new Promise((result, reject) => {
+            
+            //start the database connector
+            this.sequelize = Sequelize(this.__db_connstring);
 
+            this.User = this.sequelize.define('user', {
+                uuid: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV1, primaryKey: true },   
+                firstName: DataTypes.STRING(255),               
+                lastName: DataTypes.STRING(255),
+                authLoginType: DataTypes.STRING(32),
+                //dailyLongActingUnits: DataType.DECIMAL(8, 3),
+                unitType: DataTypes.STRING(32),
+                glLow: DataTypes.DECIMAL(8,3),                  //low range on Glucose Level (in unitType)
+                glHigh: DataTypes.DECIMAL(8,3),                 //high range of Glucose Level (in unitType)
+                carbsPerUnit: DataType.DECIMAL(8,3),    
+                godMode: DataType.BOOLEAN,
 
-var Entry = sequelize.define('entry', {
-    entryDate: DataTypes.DATE,
-    glucoseLevel: DataTypes.DECIMAL(8,3),
-    exerciseCarbs: DataType.DECIMAL(8,3),
-    insulinShort: DataType.INTEGER
-});
+                //Auth implementations for later use
+                authEmail: DataTypes.STRING(255),
+                authFacebook: DataTypes.STRING(255),
+                authGoogle: DataTypes.STRING(255),
+                authOAuth: DataTypes.STRING(255)
+            });
 
-var FoodEntry = sequelize.define('foodEntry', {
-    quantity: DataTypes.STRING(255),
-    carbs: DataTypes.INTEGER
-});
+            this.Food = this.sequelize.define('food', {
+                name: DataTypes.STRING(255),                    //Name              e.g. Pizza
+                unit: DataTypes.STRING(255),                    //Unit type,        e.g. Slice
+                carbs: DataTypes.INTEGER,                       //Carbs per unit    e.g. 30
+                defaultAmount: DataTypes.INTEGER                //Default           e.g. 1 (as in one slice)
+            });
 
+            this.Entry = this.sequelize.define('entry', {
+                entryDate: DataTypes.DATE,
+                glucoseLevel: DataTypes.DECIMAL(8,3),
+                exerciseCarbs: DataType.DECIMAL(8,3),
+                insulinShort: DataType.INTEGER
+            });
 
-User.hasMany(Entry, { as: 'Entries'});
-User.hasMany(Food, { as: 'Foods' });
+            this.FoodEntry = this.sequelize.define('foodEntry', {
+                quantity: DataTypes.STRING(255),
+                carbs: DataTypes.INTEGER
+            });
 
-Food.belongsToMany(Entry, { as: "Entries", through: FoodEntry });
-Entry.belongsToMany(Food, { as: "Foods", through: FoodEntry });
+            this.User.hasMany(this.Entry, { as: 'Entries'});
+            this.User.hasMany(this.Food, { as: 'Foods' });
 
-sequelize.sync();*/
+            this.Food.belongsToMany(this.Entry, { as: "Entries", through: this.FoodEntry });
+            this.Entry.belongsToMany(this.Food, { as: "Foods", through: this.FoodEntry });
 
+            this.sequelize.sync();
+            
+            result('success!');
+        });   
+    }
+}
 
-/*
- * No, we're not using node modules, lets use some ES6 stuff
- * module.exports = {
-    User: User,
-    Entry: Entry,
-    FoodEntry: FoodEntry
-};*/

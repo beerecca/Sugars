@@ -15,8 +15,8 @@ export function run(appdir) {
     });
 
     app.get('/api/:call', function(request, response) {
-        console.log(request.params.call);
-        
+       
+        //call the api handle function to handle the call. return responses where needed 
         api.handle(request).then(function(result) {
             response.status(400).json(result);
         }, function(err) {
