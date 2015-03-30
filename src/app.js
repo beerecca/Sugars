@@ -8,8 +8,7 @@ export class App {
       config.title = 'Sugars';
       config.map([
         { route: ['','entry'],  moduleId: 'entry',      nav: true, title:'New Entry' },
-        { route: 'flickr',        moduleId: 'flickr',       nav: true },
-        { route: 'gorg',        moduleId: 'gorg',       nav: true }
+        { route: 'flickr',        moduleId: 'flickr',       nav: true }
       ]);
     });
   }
