@@ -32,7 +32,7 @@ export class Entry{
         name : 'Rice',
         unit : 'cup',
         amount : 1,
-        carbs : 40
+        carbs : 45
       }, 
       {
         name : 'Bread',
@@ -57,8 +57,15 @@ export class Entry{
         carbs : 20
     };
 
-    this.http.post(postEntry, JSON.stringify(data));
-    //return alert('sending an entry');
+    return this.http.post(postEntry, JSON.stringify(data)).then(response => {
+      
+      if (response.statusCode === 201) {
+        console.log('Success');
+      } else {
+        console.log('Response', response);
+        alert('Something went wrong');
+      }
+    });
   }
 
   get time(){
