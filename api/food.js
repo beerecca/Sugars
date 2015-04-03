@@ -8,12 +8,18 @@ export class Food {
         this.db = new db.DB();
     }
 
+    initDb() {
+        return new Promise((resolve,reject) => {
+            this.db.init({sync: false}).then(resolve, reject);
+        });
+    }
+    
     getList(request) {
         return new Promise((resolve,reject) => {
 
             console.log('Food.getList: request recieved');
             //call the database init.
-            this.db.init().then((result) => {
+            this.initDb().then((result) => {
                 console.log('Food.getList: Database Init');
                 //success, lets query the request
                 this.db.User.findAll({
@@ -28,29 +34,64 @@ export class Food {
                     console.log('Food.getList: error getting results');
                     reject(err);
                 });
-            }, function(err) {
-                reject(err);    
-            });
-            
+            }, reject);
         });
     }
 
     fillDummy() {
         return new Promise((resolve, reject) => {
-            this.db.init().then((result) => {
+            this.initDb().then((result) => {
                 this.db.User.create({
                     firstName: 'Ben',
                     lastName: 'Naylor'
-                });
-                resolve('success');
-
-            }, function(err) {
-                reject(err);
-            });
+                }).then((user) => {
+                    var foods = [];
+                    this.db.Food.create({
+                       name: 'Pizza',
+                       unit: 'Slice',
+                       defaultAmount: 1,
+                       carbs: 30 
+                    }).then(function(food) {
+                        user.addFood(food);
+                    }, reject);
+                    this.db.Food.create({
+                        name: 'Phalus',
+                        unit: 'Man meat',
+                        defaultAmount: 2,
+                        carbs: 15
+                    }).then(function(food) {
+                        user.addFood(food);
+                    }, reject);
+                    this.db.Food.create({
+                        name: 'Rice',
+                        unit: 'cup',
+                        defaultAmount: 1,
+                        carbs: 45
+                    }).then(function(food) {
+                        user.addFood(food);
+                    }, reject);
+                    this.db.Food.create({
+                        name: 'bread',
+                        unit: 'slice',
+                        defaultAmount: 2,
+                        carbs: 20
+                    }).then(function(food) {
+                        user.addFood(food);
+                    }, reject);
+                    resolve({status: 'success'});
+                }, reject);
+            }, reject);
         });
 
     };
-
+    
+    cleanAll() {
+        return new Promise((resolve, reject) => {
+            this.initDb().then((result) => {
+                this.db.syncForce().then(resolve,reject);
+            }, reject);
+       });
+    }
 }
 
 export function handle(request) {
@@ -60,22 +101,13 @@ export function handle(request) {
         
         if (request.query.fill !== undefined) {
             console.log('Food Handler: Fill request recieved');
-            food.fillDummy().then(function(result) {
-                resolve(result); 
-            }, function(err) {
-                reject(err);
-            });
-        
+            food.fillDummy().then(resolve, reject);        
+        } else if (request.query.clean !== undefined) {
+            console.log('Food Handler: clean request recieved');
+            food.cleanAll().then(resolve, reject);
         } else { 
             console.log('Food Handler: Retrieve request recieved');
-            food.getList(request).then(function(result) {
-                console.log('Food Handler: retrieved req');
-                resolve(result);
-            }, function (err) {
-                console.log(err);
-                console.log('Food Handler: retrieved err');
-                reject(err);   
-            });
+            food.getList(request).then(resolve, reject);
         }
     });
 }

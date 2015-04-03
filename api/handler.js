@@ -10,6 +10,7 @@ export function handle(req) {
             food.handle(req).then(function(result) {
                 resolve(result);
             }, function(err) {
+                console.log(err);
                 reject('food handler error. Stack Trace: ' + err);
             });
 

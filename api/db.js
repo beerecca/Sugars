@@ -10,9 +10,19 @@ export class DB {
             }
         }
     }
-
     
-    init() {
+    syncForce() {
+        return new Promise((resolve, reject) => { 
+            console.log('DB.syncForce: request recieved');
+            this.sequelize.sync({ force: true }).then(function(result) {
+                resolve({status: 'success'});
+            }, function(err) {
+                reject(err);
+            });
+        });
+    }
+    
+    init(options) {
         return new Promise((resolve, reject) => {
             console.log('DB.init: request recieved');
             //start the database connector
@@ -67,15 +77,19 @@ export class DB {
             this.Food.belongsToMany(this.Entry, { as: "Entries", through: this.FoodEntry });
             this.Entry.belongsToMany(this.Food, { as: "Foods", through: this.FoodEntry });
             console.log('DB.init: Relationships defined. Schema defined');
-
-            this.sequelize.sync().then(function(result) {
-                console.log('DB.init: Schema sync success');
-                resolve('success!'); 
-            }, function(err) {
-                console.log('DB.init: Schema sync failed');
-                reject(err);
-            });
             
+            if (options.sync) {
+                this.sequelize.sync().then(function(result) {
+                    console.log('DB.init: Schema sync success');
+                    resolve({status: 'success'});
+                }, function(err) {
+                    console.log('DB.init: Schema sync failed');
+                    reject(err);
+                });
+            } else {
+                resolve({status: 'success'});
+            }
+
         });   
     }
 }

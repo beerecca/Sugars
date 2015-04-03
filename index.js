@@ -18,9 +18,9 @@ export function run(appdir) {
        
         //call the api handle function to handle the call. return responses where needed 
         api.handle(request).then(function(result) {
-            response.status(400).json(result);
+            response.status(200).json(result);
         }, function(err) {
-            response.status(200).json({ err: err.message});
+            response.status(400).json({ err: err.message});
         });
           
     });
