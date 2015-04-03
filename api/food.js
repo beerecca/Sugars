@@ -11,22 +11,23 @@ export class Food {
     getList(request) {
         return new Promise((resolve,reject) => {
 
+            console.log('Food.getList: request recieved');
             //call the database init.
-            this.db.init().then(function(result) {
-                
+            this.db.init().then((result) => {
+                console.log('Food.getList: Database Init');
                 //success, lets query the request
-                var foodList = this.db.User
-                .findAll({
-                    include: { model: 'Foods' }, 
+                this.db.User.findAll({
+                    include: [ { model: this.db.Food, as: 'Foods' } ], 
                     where: {
-                        firstname: {
-                            eq: 'Ben'
-                        }
+                        firstName: 'Ben'
                     }
+                }).then(function(result) {
+                    console.log('Food.getList: retrieved results');
+                    resolve(result[0].Foods);
+                }, function(err) {
+                    console.log('Food.getList: error getting results');
+                    reject(err);
                 });
-
-                //return the JSON object
-                return resolve(foodList.toJSON());
             }, function(err) {
                 reject(err);    
             });
@@ -36,11 +37,12 @@ export class Food {
 
     fillDummy() {
         return new Promise((resolve, reject) => {
-            this.db.init().then(function(result) {
+            this.db.init().then((result) => {
                 this.db.User.create({
-                    firstname: 'Ben',
-                    lastname: 'Naylor'
+                    firstName: 'Ben',
+                    lastName: 'Naylor'
                 });
+                resolve('success');
 
             }, function(err) {
                 reject(err);
@@ -53,11 +55,11 @@ export class Food {
 
 export function handle(request) {
     return new Promise(function (resolve, reject) {
+        console.log('Food Handler: Request recieved');
         var food = new Food();
-        console.log('na');
         
         if (request.query.fill !== undefined) {
-            console.log('filling data');
+            console.log('Food Handler: Fill request recieved');
             food.fillDummy().then(function(result) {
                 resolve(result); 
             }, function(err) {
@@ -65,10 +67,13 @@ export function handle(request) {
             });
         
         } else { 
-            console.log('getting data');
+            console.log('Food Handler: Retrieve request recieved');
             food.getList(request).then(function(result) {
+                console.log('Food Handler: retrieved req');
                 resolve(result);
             }, function (err) {
+                console.log(err);
+                console.log('Food Handler: retrieved err');
                 reject(err);   
             });
         }

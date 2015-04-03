@@ -4,9 +4,9 @@ import * as food from 'api/food';
 
 export function handle(req) {
     return new Promise(function(resolve, reject) {
-    
+        console.log('Handler: recieved request');
         if (req.params.call == 'food') {
-            
+            console.log('Handler REQ_TYPE: food');
             food.handle(req).then(function(result) {
                 resolve(result);
             }, function(err) {
