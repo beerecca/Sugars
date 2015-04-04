@@ -5,16 +5,18 @@ export function run(appdir) {
     //start the server
     var express = require('express');
     var app = express();
+    var bodyParser = require('body-parser');
     app.dir = appdir;
 
     app.use(express.static(app.dir));
+    app.use(bodyParser.json());
     app.set('port', (process.env.PORT || 5000));
 
     app.get('/', function(request, response) {
         response.sendFile(app.dir + '/index.html');
     });
 
-    app.get('/api/:call', function(request, response) {
+    app.all('/api/:call', function(request, response) {
        
         //call the api handle function to handle the call. return responses where needed 
         api.handle(request).then(function(result) {

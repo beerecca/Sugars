@@ -13,21 +13,16 @@ export class DB {
     
     syncForce() {
         return new Promise((resolve, reject) => { 
-            console.log('DB.syncForce: request recieved');
             this.sequelize.sync({ force: true }).then(function(result) {
                 resolve({status: 'success'});
-            }, function(err) {
-                reject(err);
-            });
+            }, reject);
         });
     }
     
     init(options) {
         return new Promise((resolve, reject) => {
-            console.log('DB.init: request recieved');
             //start the database connector
             this.sequelize = new Sequelize(this.__db_connString, this.__db_connOptions);
-            console.log('DB.init: sequelize connceted');
            
             this.User = this.sequelize.define('user', {
                 uuid: { type: Sequelize.UUID, defaultValue: Sequelize.UUIDV1, primaryKey: true },   
@@ -47,7 +42,6 @@ export class DB {
                 authGoogle: Sequelize.STRING(255),
                 authOAuth: Sequelize.STRING(255)
             });
-            console.log('DB.init: User type created');
 
             this.Food = this.sequelize.define('food', {
                 name: Sequelize.STRING(255),                    //Name              e.g. Pizza
@@ -55,7 +49,6 @@ export class DB {
                 carbs: Sequelize.INTEGER,                       //Carbs per unit    e.g. 30
                 defaultAmount: Sequelize.INTEGER                //Default           e.g. 1 (as in one slice)
             });
-            console.log('DB.init: Food type created');
 
             this.Entry = this.sequelize.define('entry', {
                 entryDate: Sequelize.DATE,
@@ -63,29 +56,22 @@ export class DB {
                 exerciseCarbs: Sequelize.DECIMAL(8,3),
                 insulinShort: Sequelize.INTEGER
             });
-            console.log('DB.init: Entry type created');
 
             this.FoodEntry = this.sequelize.define('foodEntry', {
                 quantity: Sequelize.STRING(255),
                 carbs: Sequelize.INTEGER
             });
-            console.log('DB.init: FoodEntry type created');
 
             this.User.hasMany(this.Entry, { as: 'Entries'});
             this.User.hasMany(this.Food, { as: 'Foods' });
 
             this.Food.belongsToMany(this.Entry, { as: "Entries", through: this.FoodEntry });
             this.Entry.belongsToMany(this.Food, { as: "Foods", through: this.FoodEntry });
-            console.log('DB.init: Relationships defined. Schema defined');
             
             if (options.sync) {
                 this.sequelize.sync().then(function(result) {
-                    console.log('DB.init: Schema sync success');
                     resolve({status: 'success'});
-                }, function(err) {
-                    console.log('DB.init: Schema sync failed');
-                    reject(err);
-                });
+                }, reject);
             } else {
                 resolve({status: 'success'});
             }
