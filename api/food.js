@@ -25,7 +25,8 @@ export class Food {
                 this.db.User.findAll({
                     include: [ { model: this.db.Food, as: 'Foods' } ], 
                     where: {
-                        firstName: 'Ben'
+                        firstName: 'Bex',
+                        lastName: 'Hill'
                     }
                 }).then(function(result) {
                     console.log('Food.getList: retrieved results');
@@ -40,7 +41,8 @@ export class Food {
             this.initDb().then((result) => {
                 this.db.User.findAll({
                     where: {
-                        firstName: 'Ben'
+                        firstName: 'Bex',
+                        lastName: 'Hill'
                     }
                 }).then((users) => {
                     for (var food of request.body) {
@@ -58,41 +60,43 @@ export class Food {
         return new Promise((resolve, reject) => {
             this.initDb().then((result) => {
                 this.db.User.create({
-                    firstName: 'Ben',
-                    lastName: 'Naylor'
+                    firstName: 'Bex',
+                    lastName: 'Hill'
                 }).then((user) => {
-                    this.db.Food.create({
-                       name: 'Pizza',
-                       unit: 'slice',
-                       defaultAmount: 1,
-                       carbs: 30 
-                    }).then(function(food) {
-                        user.addFood(food);
-                    }, reject);
-                    this.db.Food.create({
-                        name: 'Phalus',
-                        unit: 'man meat',
-                        defaultAmount: 2,
-                        carbs: 15
-                    }).then(function(food) {
-                        user.addFood(food);
-                    }, reject);
-                    this.db.Food.create({
-                        name: 'Rice',
-                        unit: 'cup',
-                        defaultAmount: 1,
-                        carbs: 45
-                    }).then(function(food) {
-                        user.addFood(food);
-                    }, reject);
-                    this.db.Food.create({
-                        name: 'Bread',
-                        unit: 'slice',
-                        defaultAmount: 2,
-                        carbs: 20
-                    }).then(function(food) {
-                        user.addFood(food);
-                    }, reject);
+                    /*
+                     *this.db.Food.create({
+                     *   name: 'Pizza',
+                     *   unit: 'slice',
+                     *   defaultAmount: 1,
+                     *   carbs: 30 
+                     *}).then(function(food) {
+                     *    user.addFood(food);
+                     *}, reject);
+                     *this.db.Food.create({
+                     *    name: 'Phalus',
+                     *    unit: 'man meat',
+                     *    defaultAmount: 2,
+                     *    carbs: 15
+                     *}).then(function(food) {
+                     *    user.addFood(food);
+                     *}, reject);
+                     *this.db.Food.create({
+                     *    name: 'Rice',
+                     *    unit: 'cup',
+                     *    defaultAmount: 1,
+                     *    carbs: 45
+                     *}).then(function(food) {
+                     *    user.addFood(food);
+                     *}, reject);
+                     *this.db.Food.create({
+                     *    name: 'Bread',
+                     *    unit: 'slice',
+                     *    defaultAmount: 2,
+                     *    carbs: 20
+                     *}).then(function(food) {
+                     *    user.addFood(food);
+                     *}, reject);
+                     */
                     resolve({status: 'success'});
                 }, reject);
             }, reject);
