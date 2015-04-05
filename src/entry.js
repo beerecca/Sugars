@@ -67,7 +67,7 @@ export class Entry{
 
     return this.http.post(postEntry, JSON.stringify(data)).then(response => {
       
-      if (response.statusCode === 201) {
+      if (response.statusCode === 200) {
         console.log('Success');
       } else {
         console.log('Response', response);
