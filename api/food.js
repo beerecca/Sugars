@@ -63,36 +63,11 @@ export class Food {
                     firstName: 'Bex',
                     lastName: 'Hill'
                 }).then((user) => {
-                    /*
-                     *this.db.Food.create({
+                     /*this.db.Food.create({
                      *   name: 'Pizza',
                      *   unit: 'slice',
                      *   defaultAmount: 1,
                      *   carbs: 30 
-                     *}).then(function(food) {
-                     *    user.addFood(food);
-                     *}, reject);
-                     *this.db.Food.create({
-                     *    name: 'Phalus',
-                     *    unit: 'man meat',
-                     *    defaultAmount: 2,
-                     *    carbs: 15
-                     *}).then(function(food) {
-                     *    user.addFood(food);
-                     *}, reject);
-                     *this.db.Food.create({
-                     *    name: 'Rice',
-                     *    unit: 'cup',
-                     *    defaultAmount: 1,
-                     *    carbs: 45
-                     *}).then(function(food) {
-                     *    user.addFood(food);
-                     *}, reject);
-                     *this.db.Food.create({
-                     *    name: 'Bread',
-                     *    unit: 'slice',
-                     *    defaultAmount: 2,
-                     *    carbs: 20
                      *}).then(function(food) {
                      *    user.addFood(food);
                      *}, reject);

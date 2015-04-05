@@ -54,11 +54,11 @@ export class DB {
                 entryDate: Sequelize.DATE,
                 glucoseLevel: Sequelize.DECIMAL(8,3),
                 exerciseCarbs: Sequelize.DECIMAL(8,3),
-                insulinShort: Sequelize.INTEGER
+                insulinShort: Sequelize.DECIMAL(8,3)
             });
 
             this.FoodEntry = this.sequelize.define('foodEntry', {
-                quantity: Sequelize.STRING(255),
+                quantity: Sequelize.DECIMAL(8,3),
                 carbs: Sequelize.INTEGER
             });
 
@@ -68,10 +68,14 @@ export class DB {
             this.Food.belongsToMany(this.Entry, { as: "Entries", through: this.FoodEntry });
             this.Entry.belongsToMany(this.Food, { as: "Foods", through: this.FoodEntry });
             
-            if (options.sync) {
-                this.sequelize.sync().then(function(result) {
-                    resolve({status: 'success'});
-                }, reject);
+            if (options !== undefined) {
+                if (options.sync) {
+                    this.sequelize.sync().then(function(result) {
+                        resolve({status: 'success'});
+                    }, reject);
+                } else {
+                    resolve({ status: 'success'});
+                }
             } else {
                 resolve({status: 'success'});
             }
