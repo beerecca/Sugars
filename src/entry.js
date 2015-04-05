@@ -2,7 +2,7 @@ import moment from 'moment';
 import {HttpClient} from 'aurelia-http-client';
 
 var getFood = 'http://sugars.herokuapp.com/api/food',
-    postEntry = '/api/entry';
+    postEntry = 'http://sugars.herokuapp.com/api/entry';
 
 export class Entry{
   static inject() { return [HttpClient]; }
@@ -15,7 +15,7 @@ export class Entry{
       {
         name : 'Default',
         unit : 'unit',
-        amount : 0,
+        defaultAmount : 0,
         carbs : 0
       };
     this.food = [];
@@ -51,10 +51,18 @@ export class Entry{
 
   entry(){
     var data = {
-        name : 'Bread',
-        unit : 'slice',
-        amount : 1,
-        carbs : 20
+      glucoseLevel : this.glucose,
+      exerciseCarbs : this.exercise,
+      insulinShort : this.short, //not getting the final version of this value :/
+      foodItems : [
+        {
+          id : null,
+          quantity : this.quantity,
+          carbs : this.chosenFood.carbs,
+          name : this.chosenFood.name,
+          unit : this.chosenFood.unit,
+          defaultAmount : this.chosenFood.defaultAmount
+        }]
     };
 
     return this.http.post(postEntry, JSON.stringify(data)).then(response => {
