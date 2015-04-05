@@ -17,20 +17,17 @@ export class Food {
     getList(request) {
         return new Promise((resolve,reject) => {
 
-            console.log('Food.getList: request recieved');
             //call the database init.
             this.initDb().then((result) => {
-                console.log('Food.getList: Database Init');
                 //success, lets query the request
-                this.db.User.findAll({
+                this.db.User.find({
                     include: [ { model: this.db.Food, as: 'Foods' } ], 
                     where: {
                         firstName: 'Bex',
                         lastName: 'Hill'
                     }
-                }).then(function(result) {
-                    console.log('Food.getList: retrieved results');
-                    resolve(result[0].Foods);
+                }).then(function(user) {
+                    resolve(user.Foods);
                 }, reject);
             }, reject);
         });
