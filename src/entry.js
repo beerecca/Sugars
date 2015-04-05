@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {HttpClient} from 'aurelia-http-client';
 
-var getFood = 'http://api.flickr.com/services/feeds/photos_public.gne?tags=rainier&tagmode=any&format=json',
+var getFood = '/api/food',
     postEntry = "/api/entry";
 
 export class Entry{
@@ -18,34 +18,34 @@ export class Entry{
         amount : 0,
         carbs : 0
       };
-    //this.food = [];
+    this.food = [];
     this.images = [];
     this.http = http;
-    this.food = [
-      {
-        name : 'Pizza',
-        unit : 'slice',
-        amount : 1,
-        carbs : 30
-      },
-      {
-        name : 'Rice',
-        unit : 'cup',
-        amount : 1,
-        carbs : 45
-      }, 
-      {
-        name : 'Bread',
-        unit : 'slice',
-        amount : 1,
-        carbs : 20
-      }
-    ];
+    // this.food = [
+    //   {
+    //     name : 'Pizza',
+    //     unit : 'slice',
+    //     amount : 1,
+    //     carbs : 30
+    //   },
+    //   {
+    //     name : 'Rice',
+    //     unit : 'cup',
+    //     amount : 1,
+    //     carbs : 45
+    //   }, 
+    //   {
+    //     name : 'Bread',
+    //     unit : 'slice',
+    //     amount : 1,
+    //     carbs : 20
+    //   }
+    // ];
   }
 
   activate(){
-    return this.http.jsonp(getFood).then(response => {
-      this.images = response.content.items;
+    return this.http.get(getFood).then(response => {
+      this.food = response.content;
     });
   }
 

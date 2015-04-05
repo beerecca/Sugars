@@ -23,6 +23,7 @@
           <label for="food" class="panel-title">Food</label>
         </div>
         <div class="panel-body">
+        
           <div class="form-group">
             <select selected-item.bind="chosenFood" class="form-control food">
               <option value="default">Select food item:</option>
@@ -70,7 +71,7 @@
     <br><br>
     <p>DEBUG: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${short} units</p> 
 
-    <p repeat.for="image of images">${image.title}</p>
+   <!--  <p repeat.for="image of images">${image.title}</p> -->
   </section>
 
 </template>
