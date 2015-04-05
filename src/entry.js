@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {HttpClient} from 'aurelia-http-client';
 
-var getFood = '/api/food',
+var getFood = 'http://sugars.herokuapp.com/api/food',
     postEntry = '/api/entry';
 
 export class Entry{
