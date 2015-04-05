@@ -61,7 +61,7 @@
           <label for="short" class="panel-title">Short Acting Insulin</label>
         </div>
         <div class="panel-body">
-          <input type="number" class="form-control short" value="${short}">
+          <input type="number" class="form-control short" value="${calc}" value.bind="short">
         </div>
       </div>
 
@@ -69,7 +69,7 @@
 
     </form>
     <br><br>
-    <p>DEBUG: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${short} units</p> 
+    <p>DEBUG: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${calc} units</p> 
 
   </section>
 

@@ -53,7 +53,7 @@ export class Entry{
     var data = {
       glucoseLevel : this.glucose,
       exerciseCarbs : this.exercise,
-      insulinShort : this.short, //not getting the final version of this value :/
+      insulinShort : this.short,
       foodItems : [
         {
           id : null,
@@ -91,7 +91,7 @@ export class Entry{
     }
   }
 
-  get short(){
+  get calc(){
     var normalAdjust = (parseInt(this.glucose) - 7) / 3,
         foodAdjust = (isNaN(parseInt(this.totalCarbs) / 10)) ? 0 : parseInt(this.totalCarbs) / 10,
         exerciseAdjust = parseInt(this.exercise),
