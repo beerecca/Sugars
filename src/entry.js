@@ -2,7 +2,7 @@ import moment from 'moment';
 import {HttpClient} from 'aurelia-http-client';
 
 var getFood = '/api/food',
-    postEntry = "/api/entry";
+    postEntry = '/api/entry';
 
 export class Entry{
   static inject() { return [HttpClient]; }
