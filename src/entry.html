@@ -24,25 +24,49 @@
         </div>
         <div class="panel-body">
 
-          <div class="form-group">
-            <select selected-item.bind="chosenFood" class="form-control food">
-              <option value="default">Select food item:</option>
-              <option repeat.for="foodItem of food" value.bind="foodItem.name" model.bind="foodItem">${foodItem.name}</option>
-            </select> <!-- autocomplete, and if nothing in the dropdown is selected, disable the unit field, and save the number of carbs and name to db (maybe also pop a field for units) -->
+<!-- get back an array of food from the api
+this populates the dropdown, units, defaultAmount, carbs for un-interacted-with ui food items
+when dropdown changes, add that object to the chosenfood array for posting back to the api
+on start, repeated array has one default item in it
+on add, repeated array has one more default item in it
+
+dropdown name
+unit
+
+so, unit has to be bound to whatever's selected in the dropdown, from the food array (so lets push default to the beginning of the food array)
+but it also has to be bound to the specific item in the chosenFood array
+
+-->
+
+          <div class="foodItem clearfix" repeat.for="chosenFoodItem of chosenFood">
+            
+            <div class="col-xs-11">
+              <div class="form-group">
+                <select value.bind="chosenFoodItem" class="form-control food">
+                  <option repeat.for="foodItem of $parent.food" value.bind="foodItem.name" model.bind="foodItem">${foodItem.name}</option>
+                </select> <!-- autocomplete, and if nothing in the dropdown is selected, disable the unit field, and save the number of carbs and name to db (maybe also pop a field for units) -->
+              </div>
+
+              <div class="form-group input-group">
+                <input type="range" value.bind="chosenFoodItem.quantity" class="form-control quantity" min="0" max="10" aria-describedby="units">
+                <span class="input-group-addon" id="units">${chosenFoodItem.quantity} ${chosenFoodItem.unit}</span>
+              </div><!-- ${$parent.plural(chosenFoodItem.quantity)} -->
+
+              <div class="form-group input-group">
+                <input type="range" value.bind="chosenFoodItem.carbs" class="form-control carbs" min="0" step="5" aria-describedby="carbs">
+                <span class="input-group-addon" id="carbs">${chosenFoodItem.carbs} grams of carbs</span>
+              </div>
+            </div>
+
+            <div class="col-xs-1">
+              <button click.trigger="removeFood()" type="button" class="btn btn-default btn-sm btn-warning"><i class="fa fa-minus"></i></button>
+            </div>
+
           </div>
 
-          <div class="form-group input-group">
-            <input type="range" value.bind="quantity" class="form-control quantity" min="0" max="10" aria-describedby="units">
-            <span class="input-group-addon" id="units">${quantity} ${chosenFood.unit}${plural}</span>
-          </div>
-
-          <div class="form-group input-group">
-            <input type="range" value.bind="chosenFood.carbs" class="form-control carbs" min="0" step="5" aria-describedby="carbs">
-            <span class="input-group-addon" id="carbs">${chosenFood.carbs} grams of carbs</span>
-          </div>
 
           <div class="clearfix">
-            <button click.trigger="addFood()" type="button" class="btn btn-default btn-primary pull-right"><i class="fa fa-plus"></i></button>
+            <button click.trigger="addFood()" type="button" class="btn btn-default btn-sm btn-primary pull-right"><i class="fa fa-plus"></i></button>
           </div>
         </div>
       </div>
