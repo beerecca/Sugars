@@ -82,7 +82,9 @@ export class Entry {
                                 });
                             });
                         })
-                    }).then(resolve,reject);
+                    }).then(function(result) {
+                        resolve({status: "success"});   
+                    },reject);
                 }, reject)
             }, reject);
         });
