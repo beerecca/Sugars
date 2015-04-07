@@ -18,9 +18,9 @@ gulp.task('serveprod', function(callback) {
         );
     } else {
         return runSequence(
-            'build',
             'jspmgithub',
             'jspmdependencies',
+            'build',
             'startserver',
             callback
         );
