@@ -25,7 +25,7 @@
         <div class="panel-body">
 
           <div class="form-group">
-            <select selected-item.bind="chosenFood" class="form-control food">
+            <select value.bind="chosenFood" class="form-control food">
               <option value="default">Select food item:</option>
               <option repeat.for="foodItem of food" value.bind="foodItem.name" model.bind="foodItem">${foodItem.name}</option>
             </select> <!-- autocomplete, and if nothing in the dropdown is selected, disable the unit field, and save the number of carbs and name to db (maybe also pop a field for units) -->
@@ -69,7 +69,7 @@
 
     </form>
     <br><br>
-    <p>DEBUG: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${calc} units</p> 
+    <!-- <p>DEBUG: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${calc} units</p>  -->
 
   </section>
 
