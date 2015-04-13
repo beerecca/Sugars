@@ -7,11 +7,12 @@ export class Entry{
     this.heading = 'New Entry';
     this.glucose = 0;
     this.exercise = 0;
-   
+    this.time = moment().format("dddd, Do MMMM YYYY, h:mm a");
+    
     //start the page with one empty entry food item
     this.entryFoodItems = [ new EntryFoodItem() ];
     
-    //initalize http client for ajaxy requests
+    //initialize http client for ajaxy requests
     this.client = new HttpClient()
       .configure(x => {
         x.withBaseUri('http://sugars.herokuapp.com/api');
@@ -32,6 +33,26 @@ export class Entry{
 
   addFood(){
     this.entryFoodItems.push(new EntryFoodItem());
+  }
+
+  removeFood(foodItem){
+    console.log('removing foods', foodItem);
+  }
+
+  get calc(){
+    var total = 0;
+    for (var efi of this.entryFoodItems) {
+      total += efi.getTotal();
+    }
+
+    var normalAdjust = (parseInt(this.glucose) - 7) / 3,
+        foodAdjust = total / 10,
+        exerciseAdjust = parseInt(this.exercise),
+        calculation = Math.round(((normalAdjust + foodAdjust - exerciseAdjust) * 10) / 10);
+
+        calculation = (calculation < 0) ? 0 : calculation;
+
+    return calculation;
   }
 
   submit(){
@@ -57,39 +78,9 @@ export class Entry{
       }
     });
   }
-
-  get time(){
-    return moment().format("dddd, Do MMMM YYYY, h:mm a");
-  }
-
-  totalCarbs(){
-    total = 0;
-    for (var efi of this.entryFoodItems) {
-      total += efi.getTotal();
-    }
-
-    return total;
-    //var calculation = parseInt(this.quantity) * parseInt(this.chosenFood.carbs);
-    //return `${calculation}`;
-  }
-
-  get calc(){
-    /*var normalAdjust = (parseInt(this.glucose) - 7) / 3,
-        foodAdjust = totalCarbs() / 10,
-        exerciseAdjust = parseInt(this.exercise),
-        calculation = Math.round(((normalAdjust + foodAdjust - exerciseAdjust) * 10) / 10);
-
-        calculation = (calculation < 0) ? 0 : calculation;
-
-    return calculation;*/
-    return 100;
-    //return `${calculation}`;
-  }
-
 }
 
 export class EntryFoodItem {
-  
   constructor() {
     this.id = null;
     this.name = 'Select food item:';
