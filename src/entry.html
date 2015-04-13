@@ -2,7 +2,7 @@
   <section>
     <h2>${heading}</h2>
 
-    <form role="form" submit.delegate="entry()">
+    <form role="form" submit.delegate="submit()">
 
       <div class="form-group">
         <label for="time">Date and Time</label>
@@ -23,20 +23,6 @@
           <label for="food" class="panel-title">Food</label>
         </div>
         <div class="panel-body">
-
-<!-- get back an array of food from the api
-this populates the dropdown, units, defaultAmount, carbs for un-interacted-with ui food items
-when dropdown changes, add that object to the chosenfood array for posting back to the api
-on start, repeated array has one default item in it
-on add, repeated array has one more default item in it
-
-dropdown name
-unit
-
-so, unit has to be bound to whatever's selected in the dropdown, from the food array (so lets push default to the beginning of the food array)
-but it also has to be bound to the specific item in the chosenFood array
-
--->
 
           <div class="foodItem clearfix" repeat.for="efi of entryFoodItems">
             
@@ -63,7 +49,6 @@ but it also has to be bound to the specific item in the chosenFood array
             </div>
 
           </div>
-
 
           <div class="clearfix">
             <button click.trigger="addFood()" type="button" class="btn btn-default btn-sm btn-primary pull-right"><i class="fa fa-plus"></i></button>

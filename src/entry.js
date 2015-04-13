@@ -1,12 +1,9 @@
 import moment from 'moment';
 import {HttpClient} from 'aurelia-http-client';
 
-var getFood = 'http://sugars.herokuapp.com/api/food',
-    postEntry = 'http://sugars.herokuapp.com/api/entry?add';
-
 export class Entry{
   static inject() { return [HttpClient]; }
-  constructor(http){
+  constructor(){
     this.heading = 'New Entry';
     this.glucose = 0;
     this.exercise = 0;
@@ -33,16 +30,11 @@ export class Entry{
     });
   }
 
-  activate(){
-
-  }
-
   addFood(){
     this.entryFoodItems.push(new EntryFoodItem());
   }
 
-  //TODO: rename to submit
-  entry(){
+  submit(){
     var jsonEntryFoodItem = [];
     for (var efi of this.entryFoodItems) {
       jsonEntryFoodItem.push(efi.toJSON());
@@ -52,7 +44,7 @@ export class Entry{
       glucoseLevel : this.glucose,
       exerciseCarbs : this.exercise,
       insulinShort : this.short,
-      foodItems : jsonEntryFoodItem //not updating from default when you select a new food
+      foodItems : jsonEntryFoodItem
     };
 
     return this.client.post('/entry?add', JSON.stringify(data)).then(response => {
@@ -107,7 +99,7 @@ export class EntryFoodItem {
   }
 
   get plural() {
-    return (this.quantity == 0 || this.quantity > 1)?'s':'';
+    return (this.quantity === 0 || this.quantity > 1) ? 's' : '';
   }
 
   toJSON() {
