@@ -10,7 +10,6 @@ export class Entry {
 
   addEntry(request) {
     return new Promise((resolve, reject) => {
-      reject(new Error());
       this.db.init().then((result) => {
         this.db.User.find({
           where: {
