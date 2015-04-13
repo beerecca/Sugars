@@ -29,52 +29,57 @@ export class Entry{
         quantity : 0
       }];
 
-    //this.food = [];
-    this.http = http;
-    //this.http = http.defaultRequestHeaders.add('Content-Type', 'application/json; charset=utf-8');
-    this.food = [
-      {
-        id : 4,
-        name : 'Select food item:',
-        unit : 'unit',
-        defaultAmount : 0,
-        carbs : 0,
-        quantity : 0
-      },
-      {
-        id : 1,
-        name : 'Pizza',
-        unit : 'slice',
-        defaultAmount : 1,
-        carbs : 30,
-        quantity : 0
-      },
-      {
-        id : 2,
-        name : 'Rice',
-        unit : 'cup',
-        defaultAmount : 1,
-        carbs : 45,
-        quantity : 0
-      }, 
-      {
-        id : 3,
-        name : 'Bread',
-        unit : 'slice',
-        defaultAmount : 1,
-        carbs : 20,
-        quantity : 0
-      }
-    ];
+    this.food = [];
+    //this.http = http;
+
+    this.client = new HttpClient()
+      .configure(x => {
+        x.withBaseUri('http://sugars.herokuapp.com/api');
+        x.withHeader('Content-Type', 'application/json');
+    });
+    // this.food = [
+    //   {
+    //     id : 4,
+    //     name : 'Select food item:',
+    //     unit : 'unit',
+    //     defaultAmount : 0,
+    //     carbs : 0,
+    //     quantity : 0
+    //   },
+    //   {
+    //     id : 1,
+    //     name : 'Pizza',
+    //     unit : 'slice',
+    //     defaultAmount : 1,
+    //     carbs : 30,
+    //     quantity : 0
+    //   },
+    //   {
+    //     id : 2,
+    //     name : 'Rice',
+    //     unit : 'cup',
+    //     defaultAmount : 1,
+    //     carbs : 45,
+    //     quantity : 0
+    //   }, 
+    //   {
+    //     id : 3,
+    //     name : 'Bread',
+    //     unit : 'slice',
+    //     defaultAmount : 1,
+    //     carbs : 20,
+    //     quantity : 0
+    //   }
+    // ];
   }
 
-  // activate(){
-  //   return this.http.get(getFood).then(response => {
-  //     this.food = response.content;
-  //     this.food.unshift(this.defaultFood);
-  //      console.log('this.food plus default', this.food);
-  //   });
-  // }
+  activate(){
+    return this.client.get('/food').then(response => {
+      this.food = response.content;
+      this.food.unshift(this.defaultFood);
+       console.log('this.food plus default', this.food);
+    });
+  }
 
   addFood(){
     this.chosenFood.push(this.defaultFood);
@@ -86,18 +91,16 @@ export class Entry{
       glucoseLevel : this.glucose,
       exerciseCarbs : this.exercise,
       insulinShort : this.short,
-      foodItems : [
-        {
-          id : this.chosenFood.id,
-          quantity : this.quantity,
-          carbs : this.chosenFood.carbs,
-          name : this.chosenFood.name,
-          unit : this.chosenFood.unit,
-          defaultAmount : this.chosenFood.defaultAmount
-        }]
+      foodItems : this.chosenFood //not updating from default when you select a new food
     };
 
-    return this.http.post(postEntry, JSON.stringify(data)).then(response => {
+
+    // for (let i of this.chosenFood) {
+
+    // };
+
+
+    return this.client.post('/entry?add', JSON.stringify(data)).then(response => {
       
       if (response.statusCode === 200) {
         console.log('Success');
