@@ -5,7 +5,7 @@
       <div class="xs-12">
         <h5>Glucose Level: ${entry.glucoseLevel}</h5>
         <h5>Food:</h5>
-        <p repeat.for="item of entry.foodItems">${item.name}</p>
+        <p repeat.for="item of entry.foodItems">${item.name} * ${item.quantity}. ${item.carbs} carbs</p>
         <h5>Exercise: ${entry.exerciseCarbs}</h5>
         <h5>Insulin: ${entry.insulinShort}</h5>
       </div>
