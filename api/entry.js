@@ -72,7 +72,7 @@ export class Entry {
                         {
                           quantity: foodItem.quantity,
                           carbs: foodItem.carbs,
-                        }
+                        }, { transaction: t }
                       ));
                     }
                     return new Promise.all(newEntries);
@@ -91,8 +91,48 @@ export class Entry {
 
   getList(request) {
     return new Promise((resolve, reject) => {
-      
+      this.db.init().then((result) => {
+        //TODO: limit items on some kind of date value?
+        this.db.User.find({
+          include: {
+            model: this.db.Entry,
+            as: 'Entries',
+            include: {
+              model: this.db.Food,
+              as: 'Foods'
+            }
+          },
+          where: {
+            firstName: 'Bex',
+            lastName: 'Hill',
+          }
+        }).then((userEntries) => {
+          //time to reformat the return object to something sensible
+          var entries = [];
+          
+          for (var entry of userEntries.Entries) {
+            var foodItems = [];
+            for (var foodItem of entry.Foods) {
+              foodItems.push({
+                name: foodItem.name,
+                carbs: foodItem.foodEntry.carbs,
+                foodId: foodItem.id,
+                quantity: foodItem.foodEntry.quantity,
+                unit: foodItem.unit
+              });
+            }
+            entries.push({
+              entryDate: entry.EntryDate,
+              glucoseLevel: entry.glucoseLevel,
+              exerciseCarbs: entry.exerciseCarbs,
+              insulinShort: entry.insulinShort,
+              foodItems: foodItems, 
+            })
 
+          }
+          resolve(entries); 
+        }, reject)
+      }, reject);
     });
   }
 }
@@ -105,7 +145,7 @@ export function handle(request) {
     if (request.query.add !== undefined) {
       entry.addEntry(request).then(resolve,reject); 
     } else {
-      reject(new Error('No such api call'));
+      entry.getList(request).then(resolve, reject);
     }
   });
 }

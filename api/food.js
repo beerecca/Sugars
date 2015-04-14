@@ -36,18 +36,27 @@ export class Food {
   addEntry(request) {
     return new Promise((resolve, reject) => {
       this.initDb().then((result) => {
-        this.db.User.findAll({
+        this.db.User.find({
           where: {
             firstName: 'Bex',
             lastName: 'Hill'
           }
-        }).then((users) => {
-          for (var food of request.body) {
-            this.db.Food.create(food).then(function(food) {
-              users[0].addFood(food);
+        }).then((user) => {
+          this.db.sequelize.transaction((t) => {
+            var newFoods = [];
+            for (var nfood of request.body) {
+              newFoods.push(this.db.Food.create(
+                  nfood,
+                  { transaction : t }
+                ).then((food) => {
+                  return user.addFood(food, { transaction : t });
+                })
+              );
+            }
+            return new Promise.all(newFoods).then((result) => {
+              resolve({status: 'success'});
             }, reject);
-          }
-          resolve({status: 'success'});
+          });
         }, reject);
       }, reject);
     });
