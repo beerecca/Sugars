@@ -147,6 +147,7 @@ export function handle(request) {
         entry.addEntry(request).then(resolve,reject);
       } else {
         reject(new Error('Invalid API call ' + request.params.mod + ' for /api/entry'));
+      }
     } else {
       entry.getList(request).then(resolve, reject);
     }
