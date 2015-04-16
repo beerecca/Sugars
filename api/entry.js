@@ -142,8 +142,11 @@ export function handle(request) {
     console.log('Entry Handler: request recieved');
     var entry = new Entry();
 
-    if (request.query.add !== undefined) {
-      entry.addEntry(request).then(resolve,reject); 
+    if (request.params.mod !== undefined) {
+      if (request.params.mod === 'add') {
+        entry.addEntry(request).then(resolve,reject);
+      } else {
+        reject(new Error('Invalid API call ' + request.params.mod + ' for /api/entry'));
     } else {
       entry.getList(request).then(resolve, reject);
     }

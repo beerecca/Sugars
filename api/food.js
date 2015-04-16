@@ -8,16 +8,10 @@ export class Food {
     this.db = new db.DB();
   }
 
-  initDb() {
-    return new Promise((resolve,reject) => {
-      this.db.init({sync: false}).then(resolve, reject);
-    });
-  }
-  
   getList(request) {
     return new Promise((resolve,reject) => {
       //call the database init.
-      this.initDb().then((result) => {
+      this.db.init().then((result) => {
         //success, lets query the request
         this.db.User.find({
           include: [ { model: this.db.Food, as: 'Foods' } ], 
@@ -34,7 +28,7 @@ export class Food {
 
   addEntry(request) {
     return new Promise((resolve, reject) => {
-      this.initDb().then((result) => {
+      this.db.init().then((result) => {
         this.db.User.find({
           where: {
             firstName: 'Bex',
