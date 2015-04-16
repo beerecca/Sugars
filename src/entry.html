@@ -48,7 +48,7 @@
             </div>
 
             <div class="col-xs-2 col-sm-1">
-              <button click.trigger="$parent.removeFood(efi)" type="button" class="btn btn-default btn-sm btn-warning"><i class="fa fa-minus"></i></button>
+              <button show.bind="efi.showRemoveButton" click.trigger="$parent.removeFood($index)" type="button" class="btn btn-default btn-sm btn-warning"><i class="fa fa-minus"></i></button>
             </div>
 
           </div>

@@ -1,5 +1,6 @@
 import moment from 'moment';
 import {HttpClient} from 'aurelia-http-client';
+const DEFAULTSELECT = 'Select food item:';
 
 export class Entry{
   static inject() { return [HttpClient]; }
@@ -23,7 +24,7 @@ export class Entry{
       this.food = response.content;
       this.food.unshift({
         id : null,
-        name : 'Select food item:',
+        name : DEFAULTSELECT,
         unit : 'unit',
         carbs : 0,
         quantity : 0
@@ -35,33 +36,43 @@ export class Entry{
     this.entryFoodItems.push(new EntryFoodItem());
   }
 
-  removeFood(foodItem){
-    console.log('removing foods', foodItem);
+  removeFood(index){
+    this.entryFoodItems.splice(index,1);
   }
 
   get calc(){
-    var total = 0;
+    var total = 0,
+      normalAdjust,
+      foodAdjust,
+      exerciseAdjust,
+      calculation;
+
     for (var efi of this.entryFoodItems) {
       total += efi.getTotal();
     }
 
-    var normalAdjust = (parseInt(this.glucose) - 7) / 3,
-        foodAdjust = total / 10,
-        exerciseAdjust = parseInt(this.exercise),
-        calculation = Math.round(((normalAdjust + foodAdjust - exerciseAdjust) * 10) / 10);
-
-        calculation = (calculation < 0) ? 0 : calculation;
+    normalAdjust = (parseInt(this.glucose) - 7) / 3;
+    foodAdjust = total / 10;
+    exerciseAdjust = parseInt(this.exercise);
+    calculation = Math.round(((normalAdjust + foodAdjust - exerciseAdjust) * 10) / 10);
+    calculation = (calculation < 0) ? 0 : calculation;
 
     return calculation;
   }
 
   submit(){
-    var jsonEntryFoodItem = [];
+    var data,
+        submit = document.querySelector('.submit').classList,
+        alert = document.querySelector('.alert-success').classList,
+        jsonEntryFoodItem = [];
+
     for (var efi of this.entryFoodItems) {
-      jsonEntryFoodItem.push(efi.toJSON());
+      if (efi.name !== DEFAULTSELECT) {
+        jsonEntryFoodItem.push(efi.toJSON());
+      }
     }
 
-    var data = {
+    data = {
       glucoseLevel : this.glucose,
       exerciseCarbs : this.exercise,
       insulinShort : this.short,
@@ -69,26 +80,20 @@ export class Entry{
       entryDate : this.time
     };
 
-    var submit = document.querySelector('.submit').classList,
-        alert = document.querySelector('.alert-success').classList;
-
     submit.add('active');
 
     return this.client.post('/entry?add', JSON.stringify(data)).then(response => {
       
       if (response.statusCode === 200) {
-        console.log('Success');
+
         alert.remove("fade");
         window.scrollTo(0, 0);
         submit.remove("active");
-
-        setTimeout(function(){
-          alert.add("fade");
-        }, 3000);
+        setTimeout(function(){ alert.add("fade"); }, 3000);
 
       } else {
         console.log('Response', response);
-        alert('Something went wrong');
+        alert('Something went wrong, please try again!');
       }
     });
   }
@@ -104,7 +109,17 @@ export class EntryFoodItem {
   }
 
   get plural() {
-    return (this.quantity === 0 || this.quantity > 1) ? 's' : '';
+    var pluralised = (parseInt(this.quantity) === 0 || this.quantity > 1) ? 's' : '';
+
+    if (this.unit === 'potato' && (parseInt(this.quantity) === 0 || this.quantity > 1)) {
+      pluralised = 'es';
+    }
+
+    return pluralised;
+  }
+
+  get showRemoveButton() {
+    return this.name !== DEFAULTSELECT;
   }
 
   toJSON() {
