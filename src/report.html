@@ -3,6 +3,7 @@
     <h2>${heading}</h2>
     <div class="row" repeat.for="entry of entries">
       <div class="xs-12">
+        <h5>Time: ${entry.entryDate}</h5>
         <h5>Glucose Level: ${entry.glucoseLevel}</h5>
         <h5>Food:</h5>
         <p repeat.for="item of entry.foodItems">${item.name} * ${item.quantity}. ${item.carbs} carbs</p>

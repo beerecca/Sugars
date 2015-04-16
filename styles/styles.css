@@ -68,8 +68,30 @@ section {
     margin-bottom: 15px;
 }
 
-.btn-warning {
-    margin-top: 50px;
-  margin-left: -5px;
+.submit {
+    width: 73px;
 }
-/*change this its shit*/
+
+.active {
+    width: 100px;
+}
+
+.spinner {
+    margin-left: 10px;
+    opacity: 0;
+}
+
+.active .spinner {
+    opacity: 1;
+    transition: opacity 0.1s linear;
+}
+
+.alert-success {
+    height: 50px;
+    transition: all 0.4s linear;
+}
+
+.fade {
+    height: 0px;
+    padding: 0px 15px;
+}

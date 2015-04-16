@@ -65,13 +65,27 @@ export class Entry{
       glucoseLevel : this.glucose,
       exerciseCarbs : this.exercise,
       insulinShort : this.short,
-      foodItems : jsonEntryFoodItem
+      foodItems : jsonEntryFoodItem,
+      entryDate : this.time
     };
+
+    var submit = document.querySelector('.submit').classList,
+        alert = document.querySelector('.alert-success').classList;
+
+    submit.add('active');
 
     return this.client.post('/entry?add', JSON.stringify(data)).then(response => {
       
       if (response.statusCode === 200) {
         console.log('Success');
+        alert.remove("fade");
+        window.scrollTo(0, 0);
+        submit.remove("active");
+
+        setTimeout(function(){
+          alert.add("fade");
+        }, 3000);
+
       } else {
         console.log('Response', response);
         alert('Something went wrong');
