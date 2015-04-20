@@ -94,4 +94,14 @@ section {
 .fade {
     height: 0px;
     padding: 0px 15px;
+}.low-level {
+    color: red;
+}
+
+.ideal-level {
+    color: green;
+}
+
+.high-level {
+    color: orange;
 }

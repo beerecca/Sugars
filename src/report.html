@@ -1,15 +1,45 @@
 <template>
   <section>
     <h2>${heading}</h2>
-    <div class="row" repeat.for="entry of entries">
-      <div class="xs-12">
-        <h5>Time: ${entry.entryDate}</h5>
-        <h5>Glucose Level: ${entry.glucoseLevel}</h5>
-        <h5>Food:</h5>
-        <p repeat.for="item of entry.foodItems">${item.name} * ${item.quantity}. ${item.carbs} carbs</p>
-        <h5>Exercise: ${entry.exerciseCarbs}</h5>
-        <h5>Insulin: ${entry.insulinShort}</h5>
-      </div>
-    </div>
+    <table class="table table-striped table-bordered table-responsive">
+      <th>
+        <td></td>
+        <td>8am</td>
+        <td>1pm</td>
+        <td>3pm</td>
+        <td>6pm</td>
+      </th>
+      <tr class="row">
+        <td>Monday</td>
+        <td repeat.for="entry of entries">
+          <!-- <h5>Time: ${entry.entryDate}</h5> -->
+          <h4 class="${entry.levelKeyword}-level">${entry.glucoseLevel} <small>mmol/L</small></h4>
+          <h4><i class="fa fa-cutlery"></i> ${entry.foodAdjust} <small>grams/carbs</small></h4>
+          <h4><i class="fa fa-heartbeat"></i> ${entry.exerciseCarbs} <small>exercise</small></h4>
+          <h4><i class="fa fa-medkit"></i> ${entry.insulinShort} <small>units of insulin</small></h4>
+          <p>Food eaten:</p>
+          <ul>
+            <li repeat.for="item of entry.foodItems">${item.name} (${item.quantity} × ${item.carbs} carbs)</li>
+          </ul>
+          
+        </td>
+      </tr>
+      <tr class="row">
+        <td>Tuesday</td>
+        <td repeat.for="entry of entries">
+          <!-- <h5>Time: ${entry.entryDate}</h5> -->
+          <h4 class="${entry.levelKeyword}-level">${entry.glucoseLevel} <small>mmol/L</small></h4>
+          <h4><i class="fa fa-cutlery"></i> ${entry.foodAdjust} <small>grams/carbs</small></h4>
+          <h4><i class="fa fa-heartbeat"></i> ${entry.exerciseCarbs} <small>exercise</small></h4>
+          <h4><i class="fa fa-medkit"></i> ${entry.insulinShort} <small>units of insulin</small></h4>
+          <p>Food eaten:</p>
+          <ul>
+            <li repeat.for="item of entry.foodItems">${item.name} (${item.quantity} × ${item.carbs} carbs)</li>
+          </ul>
+          
+        </td>
+      </tr>
+    </table>
+    
   </section>
 </template>
