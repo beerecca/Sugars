@@ -19,7 +19,7 @@ export class Entry {
         }).then((user) => {
           this.db.sequelize.transaction((t) => {
             return this.db.Entry.create({
-              entryDate: request.body.entryDate,
+              entryDate: new Date(Date.parse(request.body.entryDate)),
               glucoseLevel: request.body.glucoseLevel,
               exerciseCarbs: request.body.exerciseCarbs,
               insulinShort: request.body.insulinShort,  

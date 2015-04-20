@@ -77,7 +77,7 @@ export class Entry{
       exerciseCarbs : this.exercise,
       insulinShort : this.short,
       foodItems : jsonEntryFoodItem,
-      entryDate : this.time
+      entryDate : moment().format("YYYY-MM-DD HH:mm:ss")
     };
 
     submit.add('active');
