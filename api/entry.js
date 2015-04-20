@@ -19,6 +19,7 @@ export class Entry {
         }).then((user) => {
           this.db.sequelize.transaction((t) => {
             return this.db.Entry.create({
+              entryDate: request.body.entryDate,
               glucoseLevel: request.body.glucoseLevel,
               exerciseCarbs: request.body.exerciseCarbs,
               insulinShort: request.body.insulinShort,  
@@ -122,7 +123,7 @@ export class Entry {
               });
             }
             entries.push({
-              entryDate: entry.EntryDate,
+              entryDate: entry.entryDate,
               glucoseLevel: entry.glucoseLevel,
               exerciseCarbs: entry.exerciseCarbs,
               insulinShort: entry.insulinShort,
