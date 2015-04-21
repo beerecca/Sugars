@@ -7,6 +7,7 @@ export class Report{
     this.heading = 'Reports';
     this.entryDays = [];
     this.entryDaysFormatted = [];
+    this.showFood = false;
     this.client = new HttpClient()
       .configure(x => {
         x.withBaseUri('http://sugars.herokuapp.com/api');
