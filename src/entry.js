@@ -8,7 +8,7 @@ export class Entry{
     this.heading = 'New Entry';
     this.glucose = 0;
     this.exercise = 0;
-    this.time = moment().format("dddd, Do MMMM YYYY, h:mm a");
+    this.time = moment().format('dddd, Do MMMM YYYY, h:mm a');
     
     //start the page with one empty entry food item
     this.entryFoodItems = [ new EntryFoodItem() ];
