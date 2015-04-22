@@ -7,9 +7,10 @@ export class App {
     this.router.configure(config => {
       config.title = 'Sugars';
       config.map([
-        { route: ['','entry'], moduleId: 'entry', nav: true, title:'New Entry' },
-        { route: 'report', moduleId: 'report', nav: true, title:'Reports' }
+        { route: ['','entry'], moduleId: 'dist/entry', nav: true, title:'New Entry' },
+        { route: 'report', moduleId: 'dist/report', nav: true, title:'Reports' }
       ]);
     });
+    console.log(this.router);
   }
 }

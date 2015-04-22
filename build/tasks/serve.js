@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var browserSync = require('browser-sync');
 
 gulp.task('serve', ['build'], function(done) {
+//gulp.task('serve', [], function(done) {
   browserSync({
     open: false,
     port: 9000,
