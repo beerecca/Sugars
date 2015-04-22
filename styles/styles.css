@@ -94,4 +94,24 @@ section {
 .fade {
     height: 0px;
     padding: 0px 15px;
+}.low-level {
+    color: red;
+}
+
+.ideal-level {
+    color: green;
+}
+
+.high-level {
+    color: orange;
+}table ul {
+    margin-left: -15px;
+}
+
+.day-column {
+    background-color: #CCC;
+}
+
+.show-food-label {
+    font-weight: normal;
 }
