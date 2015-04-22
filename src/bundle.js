@@ -6,6 +6,8 @@ import 'aurelia-templating-resources';
 import 'aurelia-router';
 import 'aurelia-history';
 import 'aurelia-history-browser';
+import 'aurelia-loader-default';
+import 'core-js';
 
 // Routes/views
 import './app';

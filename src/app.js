@@ -11,6 +11,5 @@ export class App {
         { route: 'report', moduleId: 'dist/report', nav: true, title:'Reports' }
       ]);
     });
-    console.log(this.router);
   }
 }
