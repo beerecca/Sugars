@@ -8,6 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
 var compilerOptions = require('../6to5-options');
 var assign = Object.assign || require('object.assign');
+var jspm = require('jspm');
 
 gulp.task('build-app', function () {
   return gulp.src(paths.source)
@@ -19,7 +20,11 @@ gulp.task('build-app', function () {
     .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('build-system', shell.task('jspm bundle aurelia-bootstrapper + core-js + aurelia-templating-binding + aurelia-templating-resources + aurelia-history-browser + aurelia-templating-router + aurelia-http-client + moment dist/build.js --inject --minify'));
+gulp.task('build-system', ['build-app'], function() {
+  paths.bundles.map(function(bundle) {
+    jspm.bundle(paths.output + bundle.module, paths.output + bundle.name + '.js', { inject : true, minify: true });
+  });
+});
 
 gulp.task('build-html', function () {
   return gulp.src(paths.html)
@@ -30,7 +35,7 @@ gulp.task('build-html', function () {
 gulp.task('build', function(callback) {
   return runSequence(
     'clean',
-    ['build-system', 'build-html', 'build-app'],
+    ['build-html', 'build-system'],
     callback
   );
 });
