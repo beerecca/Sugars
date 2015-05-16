@@ -13,3 +13,4 @@ import 'core-js';
 import './app';
 import './entry';
 import './report';
+import './combobox';

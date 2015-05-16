@@ -1,4 +1,5 @@
 import moment from 'moment';
+import {comboBox} from './combobox';
 import {HttpClient} from 'aurelia-http-client';
 const DEFAULTSELECT = 'Select food item:';
 
@@ -30,6 +31,12 @@ export class Entry{
         quantity : 0
       });
     });
+
+    setTimeout(function(){ //change this to an onload of html event of some kind
+      this.comboBox = new comboBox('cb_identifier');
+      console.log('combobox after timeout', this.comboBox);
+    }, 10000);
+
   }
 
   addFood(){
