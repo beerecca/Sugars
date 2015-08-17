@@ -22,7 +22,7 @@ To run the app, follow these steps.
   ```shell
   npm install -g jspm
   ```
-  > **Note:** jspm queries GitHub to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm endpoint config github` and following the prompts.
+  > **Note:** jspm queries GitHub to install semver packages, but GitHub has a rate limit on anonymous API requests. It is advised that you configure jspm with your GitHub credentials in order to avoid problems. You can do this by executing `jspm registry config github` and following the prompts.
 5. Install the client-side dependencies with jspm:
 
   ```shell
@@ -41,6 +41,19 @@ To run the app, follow these steps.
 ```html
 <script src="jspm_packages/github/webcomponents/webcomponentsjs@0.5.2/HTMLImports.js"></script>
 ```
+## Bundling
+Bundling is performed by [Aurelia CLI](http://github.com/aurelia/cli). If you don't have the cli installed, use the following command:
+
+  ```shell
+   npm install -g aurelia-cli
+  ```
+
+You can create bundles for both javascript modules and Aurelia views/templates with this command:
+
+  ```shell
+  aurelia bundle
+  ```  
+> Note that, we have an `aureliafile.js` placed in the root of the project. CLI uses this file for various configuration that includes bundling. To learn more about other configuration options please visit [CLI Documentation](https://github.com/aurelia/cli/blob/master/README.md)
 
 ## Running The Unit Tests
 
@@ -76,7 +89,13 @@ Integration tests are performed with [Protractor](http://angular.github.io/protr
 
 3. Configure the path to the webdriver by opening the file ```protractor.conf.js``` and adjusting the ```seleniumServerJar``` property. Typically its only needed to adjust the version number.
 
-4. Run the E2E-Tests
+4. Make sure your app runs and is accessible
+
+  ```shell
+  gulp watch
+  ```
+
+5. In another console run the E2E-Tests
 
   ```shell
   gulp e2e
