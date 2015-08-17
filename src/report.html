@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="au-animate">
     <h2>${heading}</h2>
     <hr><br>
 
@@ -17,12 +17,14 @@
           <h4><i class="fa fa-cutlery"></i> ${entry.foodAdjust} <small>grams/carbs</small></h4>
           <h4><i class="fa fa-heartbeat"></i> ${entry.exerciseCarbs} <small>exercise</small></h4>
           <h4><i class="fa fa-medkit"></i> ${entry.insulinShort} <small>units of insulin</small></h4>
-          <small>Food eaten:</small>
-          <ul show.bind="showFood">
-            <li repeat.for="item of entry.foodItems"><small>${item.name} (${item.quantity} × ${item.carbs} carbs)</small></li>
-          </ul>
+          <div show.bind="$parent.$parent.showFood">
+            <small>Food eaten:</small>
+            <ul>
+              <li repeat.for="item of entry.foodItems"><small>${item.name} (${item.quantity} × ${item.carbs} carbs)</small></li>
+            </ul>
+          </div>
         </td>
       </tr>
-    </table>  
+    </table>
   </section>
 </template>

@@ -1,12 +1,8 @@
-import './bundle';
-
-import {bootstrap} from 'aurelia-bootstrapper';
-
-bootstrap(aurelia => {
+export function configure(aurelia) {
   aurelia.use
-    .defaultBindingLanguage()
-    .defaultResources()
-    .router();
-  aurelia.start().then(a => a.setRoot('dist/app', document.body));
-});
+    .standardConfiguration()
+    .developmentLogging()
+    .plugin('aurelia-animator-css');
 
+  aurelia.start().then(a => a.setRoot());
+}

@@ -1,34 +1,16 @@
 <template>
+  <require from='nav-bar'></require>
+  
   <div class="container-fluid">
     <div class="row">
-      <nav class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            <span>${router.title}</span>
-          </a>
-
-          <ul class="nav navbar-nav pull-right">
-            <li class="loader" if.bind="router.isNavigating">
-              <i class="fa fa-spinner fa-spin fa-2x"></i>
-            </li>
-          </ul>
-        </div>
-  
-        <div class="navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
-              <a href.bind="row.href">${row.title}</a>
-            </li>
-          </ul>
-          
-       </div>
-      </nav>
+      <nav-bar router.bind="router"></nav-bar>
     </div>
-  
+    
     <div class="row">
       <div class="container">
         <router-view></router-view>
       </div>
     </div>
   </div>
+
 </template>

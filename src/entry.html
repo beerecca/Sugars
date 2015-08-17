@@ -1,5 +1,6 @@
 <template>
-  <section>
+
+  <section class="au-animate">
 
     <div class="alert alert-success fade" role="alert">Nice! Your new entry was added.</div>
 
@@ -11,6 +12,17 @@
         <label for="time">Date and Time</label>
         <p>${time}</p>
       </div>
+
+      <div class="combobox">
+        <input type="text" name="comboboxfieldname" id="cb_identifier" placeholder="Select/add food item:" class="form-control">
+
+        <span class="form-control"><i class="fa fa-chevron-down"></i></span>
+        <div class="dropdownlist form-control">
+          <a repeat.for="foodItem of food">${foodItem.name}</a>
+        </div>
+      </div>
+
+      <br><br>
 
       <div class="form-group panel panel-info">
         <div class="panel-heading">
@@ -84,5 +96,4 @@
     <!--<p>DEBUG: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${calc} units</p>--> 
 
   </section>
-
 </template>

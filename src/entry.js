@@ -1,35 +1,50 @@
 import moment from 'moment';
-import {HttpClient} from 'aurelia-http-client';
+import {inject} from 'aurelia-framework';
+import {HttpClient} from 'aurelia-fetch-client';
+import 'fetch';
+import {comboBox} from './combobox';
 const DEFAULTSELECT = 'Select food item:';
 
+@inject(HttpClient)
 export class Entry{
-  static inject() { return [HttpClient]; }
-  constructor(){
+  constructor(http){
     this.heading = 'New Entry';
     this.glucose = 0;
     this.exercise = 0;
     this.time = moment().format('dddd, Do MMMM YYYY, h:mm a');
+    this.food = [];
     
     //start the page with one empty entry food item
     this.entryFoodItems = [ new EntryFoodItem() ];
     
     //initialize http client for ajaxy requests
-    this.client = new HttpClient()
-      .configure(x => {
-        x.withBaseUri('http://sugars.herokuapp.com/api');
-        x.withHeader('Content-Type', 'application/json');
+    http.configure(config => {
+      config
+        .useStandardConfiguration()
+        //.withHeader('Content-Type', 'application/json')
+        .withBaseUrl('http://sugars.herokuapp.com/api/');
     });
-    
-    this.client.get('/food').then(response => {
-      this.food = response.content;
-      this.food.unshift({
-        id : null,
-        name : DEFAULTSELECT,
-        unit : 'unit',
-        carbs : 0,
-        quantity : 0
+
+    this.http = http;
+
+    this.http.fetch('food')
+      .then(response => response.json())
+      .then(food => {
+        this.food = food;
+        this.food.unshift({
+          id : null,
+          name : DEFAULTSELECT,
+          unit : 'unit',
+          carbs : 0,
+          quantity : 0
+        });
       });
-    });
+
+    setTimeout(function(){ //change this to an onload of html event of some kind
+      this.comboBox = new comboBox('cb_identifier');
+      console.log('combobox after timeout', this.comboBox);
+    }, 10000);
+
   }
 
   addFood(){
@@ -82,9 +97,15 @@ export class Entry{
 
     submit.add('active');
 
-    return this.client.post('/entry?add', JSON.stringify(data)).then(response => {
+    return this.http.fetch('entry?add', {
+      method: 'post',
+      headers: { //TODO: should be able to set this globally
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data) //TODO: is the data going through? also should be catch instead of if
+    }).then(response => {
       
-      if (response.statusCode === 200) {
+      if (response.status === 200) {
 
         alert.remove("fade");
         window.scrollTo(0, 0);
@@ -93,7 +114,7 @@ export class Entry{
 
       } else {
         console.log('Response', response);
-        alert('Something went wrong, please try again!');
+        window.alert('Something went wrong, please try again!');
       }
     });
   }
@@ -144,6 +165,3 @@ export class EntryFoodItem {
   }
 
 }
-
-
-

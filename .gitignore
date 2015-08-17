@@ -3,8 +3,5 @@ jspm_packages
 bower_components
 .idea
 .DS_STORE
-*.swp
-npm-debug.log
-.env
-dist/
-*.sh
+/dist
+build/reports
