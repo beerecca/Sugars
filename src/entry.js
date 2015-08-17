@@ -2,6 +2,7 @@ import moment from 'moment';
 import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import 'fetch';
+import {comboBox} from './combobox';
 const DEFAULTSELECT = 'Select food item:';
 
 @inject(HttpClient)
@@ -37,8 +38,13 @@ export class Entry{
           carbs : 0,
           quantity : 0
         });
-
       });
+
+    setTimeout(function(){ //change this to an onload of html event of some kind
+      this.comboBox = new comboBox('cb_identifier');
+      console.log('combobox after timeout', this.comboBox);
+    }, 10000);
+
   }
 
   addFood(){
