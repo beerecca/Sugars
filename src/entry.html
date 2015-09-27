@@ -13,17 +13,6 @@
         <p>${time}</p>
       </div>
 
-      <div class="combobox">
-        <input type="text" name="comboboxfieldname" id="cb_identifier" placeholder="Select/add food item:" class="form-control">
-
-        <span class="form-control"><i class="fa fa-chevron-down"></i></span>
-        <div class="dropdownlist form-control">
-          <a repeat.for="foodItem of food">${foodItem.name}</a>
-        </div>
-      </div>
-
-      <br><br>
-
       <div class="form-group panel panel-info">
         <div class="panel-heading">
           <label for="glucose" class="panel-title">Glucose Level (${glucose})</label>

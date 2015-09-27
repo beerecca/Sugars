@@ -16,7 +16,8 @@ var config = {
         'github:aurelia/history-browser'
       ],
       options: {
-        inject: true
+        inject: true,
+        minify: true
       }
     }
   },

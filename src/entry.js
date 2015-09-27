@@ -40,10 +40,10 @@ export class Entry{
         });
       });
 
-    setTimeout(function(){ //change this to an onload of html event of some kind
-      this.comboBox = new comboBox('cb_identifier');
-      console.log('combobox after timeout', this.comboBox);
-    }, 10000);
+    // setTimeout(function(){ //change this to an onload of html event of some kind
+    //   this.comboBox = new comboBox('cb_identifier');
+    //   console.log('combobox after timeout', this.comboBox);
+    // }, 10000);
 
   }
 
