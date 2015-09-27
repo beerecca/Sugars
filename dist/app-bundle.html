@@ -1,0 +1,155 @@
+<template id="app.html!view">
+  <require from="nav-bar"></require>
+  
+  <div class="container-fluid">
+    <div class="row">
+      <nav-bar router.bind="router"></nav-bar>
+    </div>
+    
+    <div class="row">
+      <div class="container">
+        <router-view></router-view>
+      </div>
+    </div>
+  </div>
+
+</template>
+<template id="entry.html!view">
+
+  <section class="au-animate">
+
+    <div class="alert alert-success fade" role="alert">Nice! Your new entry was added.</div>
+
+    <h2>${heading}</h2>
+
+    <form role="form" submit.delegate="submit()">
+
+      <div class="form-group">
+        <label for="time">Date and Time</label>
+        <p>${time}</p>
+      </div>
+
+      <div class="form-group panel panel-info">
+        <div class="panel-heading">
+          <label for="glucose" class="panel-title">Glucose Level (${glucose})</label>
+        </div>
+        <div class="panel-body">
+          <input type="range" value.bind="glucose" class="form-control glucose" min="0" max="30" step="1">
+        </div>
+      </div>
+
+      <div class="form-group panel panel-info">
+        <div class="panel-heading">
+          <label for="food" class="panel-title">Food</label>
+        </div>
+        <div class="panel-body">
+
+          <div class="foodItem clearfix" repeat.for="efi of entryFoodItems">
+            
+            <div class="col-xs-10 col-sm-11">
+              <div class="form-group">
+                <select value.bind="efi.foodItem" class="form-control food">
+                  <option repeat.for="foodItem of $parent.food" model.bind="foodItem">${foodItem.name}</option>
+                </select> <!-- autocomplete, and if nothing in the dropdown is selected, disable the unit field, and save the number of carbs and name to db (maybe also pop a field for units) -->
+              </div>
+
+              <div class="form-group input-group">
+                <input type="range" value.bind="efi.quantity" class="form-control quantity" min="0" max="10" aria-describedby="units">
+                <span class="input-group-addon" id="units">${efi.quantity} ${efi.unit}${efi.plural}</span>
+              </div>
+
+              <div class="form-group input-group">
+                <input type="range" value.bind="efi.carbs" class="form-control carbs" min="0" step="5" aria-describedby="carbs">
+                <span class="input-group-addon" id="carbs">${efi.carbs} grams of carbs</span>
+              </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-1">
+              <button show.bind="efi.showRemoveButton" click.trigger="$parent.removeFood($index)" type="button" class="btn btn-default btn-sm btn-warning"><i class="fa fa-minus"></i></button>
+            </div>
+
+          </div>
+
+          <div class="clearfix">
+            <button click.trigger="addFood()" type="button" class="btn btn-default btn-sm btn-primary pull-right"><i class="fa fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group panel panel-info">
+        <div class="panel-heading">
+          <label for="exercise" class="panel-title">Exercise (${exercise})</label>
+        </div>
+        <div class="panel-body">
+          <input type="range" value.bind="exercise" class="form-control exercise" min="0" max="5">
+        </div>
+      </div>
+
+      <div class="form-group panel panel-success">
+        <div class="panel-heading">
+          <label for="short" class="panel-title">Short Acting Insulin</label>
+        </div>
+        <div class="panel-body">
+          <input type="number" class="form-control short" value="${calc}" value.bind="short">
+        </div>
+      </div>
+
+      <button type="submit" class="submit btn btn-default btn-primary">Submit <i class="spinner fa fa-spin fa-refresh"></i></button>
+
+    </form>
+    <br><br>
+    <!--<p>DEBUG: ${(glucose - 7) / 3} normal adjust + ${totalCarbs / 10} food adjust - ${exercise} exercise = ${calc} units</p>--> 
+
+  </section>
+</template>
+<template id="nav-bar.html!view">
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <span>${router.title}</span>
+      </a>
+
+      <ul class="nav navbar-nav pull-right">
+        <li class="loader" if.bind="router.isNavigating">
+          <i class="fa fa-spinner fa-spin fa-2x"></i>
+        </li>
+      </ul>
+    </div>
+
+    <ul class="nav navbar-nav">
+      <li repeat.for="row of router.navigation" class="${row.isActive ? 'active' : ''}">
+        <a href.bind="row.href">${row.title}</a>
+      </li>
+    </ul>
+  </nav>
+</template>
+<template id="report.html!view">
+  <section class="au-animate">
+    <h2>${heading}</h2>
+    <hr><br>
+
+    <h4>LogBook</h4>
+    <input type="checkbox" checked.bind="showFood" id="show-food">
+    <label for="show-food" class="show-food-label">Show/hide details of food eaten</label>
+    <br><br>
+
+    <table class="table table-striped table-bordered table-responsive">
+      <tbody><tr repeat.for="day of entryDaysFormatted">
+        <td class="day-column">${day}</td>
+        <td repeat.for="entry of $parent.entries | dayFilter: day">
+          <p>${entry.entryDate | timeFormat}</p>
+          <h4 class="${entry.levelKeyword}-level">${entry.glucoseLevel} <small>mmol/L</small></h4>
+          <h4><i class="fa fa-cutlery"></i> ${entry.foodAdjust} <small>grams/carbs</small></h4>
+          <h4><i class="fa fa-heartbeat"></i> ${entry.exerciseCarbs} <small>exercise</small></h4>
+          <h4><i class="fa fa-medkit"></i> ${entry.insulinShort} <small>units of insulin</small></h4>
+          <div show.bind="$parent.$parent.showFood">
+            <small>Food eaten:</small>
+            <ul>
+              <li repeat.for="item of entry.foodItems"><small>${item.name} (${item.quantity} × ${item.carbs} carbs)</small></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </tbody></table>
+  </section>
+</template>
