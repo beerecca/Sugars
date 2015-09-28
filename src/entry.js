@@ -9,7 +9,7 @@ const DEFAULTSELECT = 'Select food item:';
 export class Entry{
   constructor(http){
     this.heading = 'New Entry';
-    this.glucose = 0;
+    this.glucose = 7;
     this.exercise = 0;
     this.time = moment().format('dddd, Do MMMM YYYY, h:mm a');
     this.food = [];
@@ -53,6 +53,14 @@ export class Entry{
 
   removeFood(index){
     this.entryFoodItems.splice(index,1);
+  }
+
+  glucoseUp(){
+    this.glucose++;
+  }
+
+  glucoseDown(){
+    this.glucose--;
   }
 
   get calc(){

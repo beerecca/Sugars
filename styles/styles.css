@@ -212,9 +212,15 @@ div.au-stagger {
     width: 73px;
 }
 
-/*.active {
+.active {
     width: 100px;
-}*/
+    transition: width 0.6s;
+}
+
+.submit {
+  outline: none !important;
+  border: none !important;
+}
 
 .spinner {
     margin-left: 10px;
@@ -223,7 +229,8 @@ div.au-stagger {
 
 .active .spinner {
     opacity: 1;
-    transition: opacity 0.1s linear;
+    transition: opacity 0.4s linear;
+    transition-delay: 0.2s;
 }
 
 .alert-success {
@@ -261,8 +268,14 @@ table ul {
     font-weight: normal;
 }
 
+.glucose {
+    margin: 0 15px;
+}
 
-
+.glucose-group {
+    display: flex;
+    justify-content: space-between;
+}
 
 div.combobox {
     position: relative;

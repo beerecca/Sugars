@@ -17,8 +17,10 @@
         <div class="panel-heading">
           <label for="glucose" class="panel-title">Glucose Level (${glucose})</label>
         </div>
-        <div class="panel-body">
+        <div class="panel-body glucose-group">
+          <button click.trigger="glucoseDown()" type="button" class="btn btn-default btn-sm pull-left"><i class="fa fa-minus"></i></button>
           <input type="range" value.bind="glucose" class="form-control glucose" min="0" max="30" step="1">
+          <button click.trigger="glucoseUp()" type="button" class="btn btn-default btn-sm pull-right"><i class="fa fa-plus"></i></button>
         </div>
       </div>
 
