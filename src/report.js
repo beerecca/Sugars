@@ -16,7 +16,7 @@ export class Report{
       config
         .useStandardConfiguration()
         //.withHeader('Content-Type', 'application/json')
-        .withBaseUrl('http://sugars.herokuapp.com/api/');
+        .withBaseUrl('http://sugars-api.herokuapp.com/api/');
     });
 
     this.http = http;
