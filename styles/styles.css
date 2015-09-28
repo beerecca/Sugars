@@ -212,7 +212,7 @@ div.au-stagger {
     width: 73px;
 }
 
-.active {
+.submit.active {
     width: 100px;
     transition: width 0.6s;
 }
