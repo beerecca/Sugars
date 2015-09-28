@@ -1,0 +1,30 @@
+<template>
+  <section class="au-animate">
+    <h2>${heading}</h2>
+    <hr><br>
+
+    <h4>LogBook</h4>
+    <input type="checkbox" checked.bind="showFood" id="show-food">
+    <label for="show-food" class="show-food-label">Show/hide details of food eaten</label>
+    <br><br>
+
+    <table class="table table-striped table-bordered table-responsive">
+      <tr repeat.for="day of entryDaysFormatted">
+        <td class="day-column">${day}</td>
+        <td repeat.for="entry of $parent.entries | dayFilter: day">
+          <p>${entry.entryDate | timeFormat}</p>
+          <h4 class="${entry.levelKeyword}-level">${entry.glucoseLevel} <small>mmol/L</small></h4>
+          <h4><i class="fa fa-cutlery"></i> ${entry.foodAdjust} <small>grams/carbs</small></h4>
+          <h4><i class="fa fa-heartbeat"></i> ${entry.exerciseCarbs} <small>exercise</small></h4>
+          <h4><i class="fa fa-medkit"></i> ${entry.insulinShort} <small>units of insulin</small></h4>
+          <div show.bind="$parent.$parent.showFood">
+            <small>Food eaten:</small>
+            <ul>
+              <li repeat.for="item of entry.foodItems"><small>${item.name} (${item.quantity} × ${item.carbs} carbs)</small></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </section>
+</template>
