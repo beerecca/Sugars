@@ -1,9 +1,14 @@
+//TODO: make the combobox load once everything else is loaded
+//TODO: make the combobox work with multiple of them use id="combo-${$index}"
+
+
 import moment from 'moment';
 import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import 'fetch';
 import {comboBox} from './combobox';
 const DEFAULTSELECT = 'Select food item:';
+let foodArray = [];
 
 @inject(HttpClient)
 export class Entry{
@@ -38,17 +43,25 @@ export class Entry{
           carbs : 0,
           quantity : 0
         });
+        foodArray = this.food;
       });
 
-    // setTimeout(function(){ //change this to an onload of html event of some kind
-    //   this.comboBox = new comboBox('cb_identifier');
-    //   console.log('combobox after timeout', this.comboBox);
-    // }, 10000);
+    setTimeout(function(){ //change this to an onload of html event of some kind
+      new comboBox('combo-0');
+      console.log('combobox after timeout');
+    }, 5000);
 
   }
 
   addFood(){
     this.entryFoodItems.push(new EntryFoodItem());
+    let i = this.entryFoodItems.length - 1;
+
+    setTimeout(function(){
+      new comboBox('combo-'+i);
+      console.log('new combo');
+    }, 500);
+
   }
 
   removeFood(index){
@@ -161,15 +174,22 @@ export class EntryFoodItem {
   }
 
   set foodItem(item) {
-    this.id = item.id;
-    this.name = item.name;
-    this.quantity = item.defaultAmount;
-    this.carbs = item.carbs;
-    this.unit = item.unit;
+
+    if (foodArray.find(x => x.name === item) === undefined) { return; } //TODO: ideally should use id not name
+
+    var result = foodArray.find(x => x.name === item);
+
+    this.id = result.id;
+    this.name = result.name;
+    this.quantity = result.defaultAmount;
+    this.carbs = result.carbs;
+    this.unit = result.unit;
   }
 
   getTotal() {
     return (this.carbs * this.quantity);
   }
 
+
 }
+

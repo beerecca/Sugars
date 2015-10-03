@@ -57,6 +57,7 @@ export function comboBox(object_name) {
       upv = upv.replace(/\<b\>/ig, '');
       upv = upv.replace(/\<\/b\>/ig, '');
       parobject.edit.value = upv;
+      parobject.edit.dispatchEvent(new Event("change"));
       parobject.dropdownlist.style.display = 'none';
       return false;
     }
@@ -145,6 +146,7 @@ export function comboBox(object_name) {
         upv = upv .replace(/\<b\>/ig, '');
         upv = upv .replace(/\<\/b\>/ig, '');
         parobject.edit.value = upv;
+        parobject.edit.dispatchEvent(new Event("change"));
       }
       parobject.dropdownlist.style.display = 'none';
       
