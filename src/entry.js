@@ -1,6 +1,5 @@
-//TODO: make the combobox load once everything else is loaded
-//TODO: make the combobox work with multiple of them use id="combo-${$index}"
 
+//TODO: fix bug when remove multiple comboboxes
 
 import moment from 'moment';
 import {inject} from 'aurelia-framework';
@@ -36,32 +35,22 @@ export class Entry{
       .then(response => response.json())
       .then(food => {
         this.food = food;
-        this.food.unshift({
-          id : null,
-          name : DEFAULTSELECT,
-          unit : 'unit',
-          carbs : 0,
-          quantity : 0
-        });
         foodArray = this.food;
+
+        setTimeout(function(){
+          new comboBox('combo-0');
+        });
       });
 
-    setTimeout(function(){ //change this to an onload of html event of some kind
-      new comboBox('combo-0');
-      console.log('combobox after timeout');
-    }, 5000);
-
   }
-
+  
   addFood(){
     this.entryFoodItems.push(new EntryFoodItem());
     let i = this.entryFoodItems.length - 1;
 
     setTimeout(function(){
       new comboBox('combo-'+i);
-      console.log('new combo');
-    }, 500);
-
+    });
   }
 
   removeFood(index){

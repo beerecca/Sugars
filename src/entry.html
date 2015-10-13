@@ -39,7 +39,7 @@
                   <input type="text" value.bind="efi.foodItem" model.bind="foodItem" name="comboboxfieldname" id="combo-${$index}" placeholder="Select/add food item:" class="form-control">
                   <span class="form-control"><i class="fa fa-chevron-down"></i></span>
                   <div class="dropdownlist form-control">
-                    <a repeat.for="foodItem of $parent.food" data-foodId="${foodItem.id}">${foodItem.name}</a>
+                    <a repeat.for="foodItem of $parent.food">${foodItem.name}</a>
                   </div>
                 </div>
               

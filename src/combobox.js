@@ -100,7 +100,6 @@ export function comboBox(object_name) {
         }
         parobject.currentitem = parobject.listitems[parobject.currentitemindex];
         parobject.currentitem.className += ' light';
-        parobject.currentitem.scrollIntoView(false);
       }
       e.cancelBubble = true;
       if (navigator.appName != 'Microsoft Internet Explorer') {
@@ -125,7 +124,6 @@ export function comboBox(object_name) {
         }
         parobject.currentitem = parobject.listitems[parobject.currentitemindex];
         parobject.currentitem.className += ' light';
-        parobject.currentitem.scrollIntoView(false);
       }
       e.cancelBubble = true;
       if (navigator.appName != 'Microsoft Internet Explorer') {
@@ -136,6 +134,14 @@ export function comboBox(object_name) {
     }
     
   };
+
+  //override aurelia's submit.delegate which runs when enter is pressed onkeydown
+  this.edit.addEventListener("keypress", function(event){
+    if (event.keyCode == 13 && parobject.visiblecount !== 0) {
+      event.preventDefault();
+    }
+  });
+
   this.edit.onkeyup = function (e) {
     e = e || window.event;  
     if (e.keyCode == 13) {
