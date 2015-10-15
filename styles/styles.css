@@ -292,7 +292,8 @@ div.combobox div.dropdownlist {
     left: 0px;
     padding: 0px;
     width: 100%;
-    height: 226px;
+    height: initial;
+    max-height: 226px;
     z-index: 5;
 }
 

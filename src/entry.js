@@ -1,4 +1,3 @@
-
 //TODO: fix bug when remove multiple comboboxes
 
 import moment from 'moment';
@@ -91,11 +90,19 @@ export class Entry{
         alert = document.querySelector('.alert-success').classList,
         jsonEntryFoodItem = [];
 
-    for (var efi of this.entryFoodItems) {
+    this.entryFoodItems.forEach(function(efi, i) {
+
+      //if the food name entered doesn't match anything in the food array, set the name to that
+      var name = document.getElementById('combo-'+i).value;
+      if (foodArray.find(x => x.name === name) === undefined) { 
+        efi.name = name;
+      }
+
       if (efi.name !== DEFAULTSELECT) {
         jsonEntryFoodItem.push(efi.toJSON());
       }
-    }
+
+    });
 
     data = {
       glucoseLevel : this.glucose,
@@ -133,7 +140,7 @@ export class Entry{
 export class EntryFoodItem {
   constructor() {
     this.id = null;
-    this.name = 'Select food item:';
+    this.name = DEFAULTSELECT;
     this.unit = 'unit';
     this.carbs = 0;
     this.quantity = 0;
@@ -164,6 +171,7 @@ export class EntryFoodItem {
 
   set foodItem(item) {
 
+    //if the food name entered doesn't match anything in the food array, return
     if (foodArray.find(x => x.name === item) === undefined) { return; } //TODO: ideally should use id not name
 
     var result = foodArray.find(x => x.name === item);
