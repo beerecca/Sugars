@@ -144,20 +144,29 @@ export class EntryFoodItem {
     this.unit = 'unit';
     this.carbs = 0;
     this.quantity = 0;
+    this.showInput = false;
   }
 
   get plural() {
     var pluralised = (parseInt(this.quantity) === 0 || this.quantity > 1) ? 's' : '';
-
     if (this.unit === 'potato' && (parseInt(this.quantity) === 0 || this.quantity > 1)) {
       pluralised = 'es';
     }
-
     return pluralised;
   }
 
   get showRemoveButton() {
     return this.name !== DEFAULTSELECT;
+  }
+
+  unitsInput() {
+    setTimeout(() => {
+      this.showInput = this.id === null;        
+    }, 100);
+  }
+
+  get showUnitsInput() {
+    return this.showInput;
   }
 
   toJSON() {
@@ -172,7 +181,7 @@ export class EntryFoodItem {
   set foodItem(item) {
 
     //if the food name entered doesn't match anything in the food array, return
-    if (foodArray.find(x => x.name === item) === undefined) { return; } //TODO: ideally should use id not name
+    if (foodArray.find(x => x.name === item) === undefined) { this.id = null; return; } //TODO: ideally should use id not name
 
     var result = foodArray.find(x => x.name === item);
 

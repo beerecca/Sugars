@@ -34,21 +34,19 @@
             
             <div class="col-xs-10 col-sm-11">
               <div class="form-group">
-
                 <div class="combobox">
-                  <input type="text" value.bind="efi.foodItem" model.bind="foodItem" name="comboboxfieldname" id="combo-${$index}" placeholder="Select/add food item:" class="form-control">
+                  <input type="text" value.bind="efi.foodItem" model.bind="foodItem" name="comboboxfieldname" id="combo-${$index}" placeholder="Select/add food item:" class="form-control" blur.trigger="efi.unitsInput()">
                   <span class="form-control"><i class="fa fa-chevron-down"></i></span>
                   <div class="dropdownlist form-control">
                     <a repeat.for="foodItem of $parent.food">${foodItem.name}</a>
                   </div>
                 </div>
-              
-                <!-- autocomplete, and if nothing in the dropdown is selected, disable the unit field (mm concept of default units), and save the number of carbs and name to db (maybe also pop a field for units) -->
               </div>
 
               <div class="form-group input-group">
                 <input type="range" value.bind="efi.quantity" class="form-control quantity" min="0" max="10" aria-describedby="units">
-                <span class="input-group-addon" id="units">${efi.quantity} ${efi.unit}${efi.plural}</span>
+                <span class="input-group-addon" id="units">${efi.quantity} <span show.bind="!efi.showUnitsInput">${efi.unit}${efi.plural}</span></span>
+                <input type="text" class="form-control" placeholder="unit" show.bind="efi.showUnitsInput">
               </div>
 
               <div class="form-group input-group">
