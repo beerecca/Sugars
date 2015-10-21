@@ -145,6 +145,7 @@ export class EntryFoodItem {
     this.carbs = 0;
     this.quantity = 0;
     this.showInput = false;
+    this.recheck = false;
   }
 
   get plural() {
@@ -160,12 +161,14 @@ export class EntryFoodItem {
   }
 
   unitsInput() {
-    setTimeout(() => {
-      this.showInput = this.id === null;        
-    }, 100);
+    this.recheck = true;
   }
 
   get showUnitsInput() {
+    if (this.recheck) {
+      this.showInput = this.id === null;
+      this.recheck = false;
+    }
     return this.showInput;
   }
 
@@ -181,9 +184,11 @@ export class EntryFoodItem {
   set foodItem(item) {
 
     //if the food name entered doesn't match anything in the food array, return
-    if (foodArray.find(x => x.name === item) === undefined) { this.id = null; return; } //TODO: ideally should use id not name
-
     var result = foodArray.find(x => x.name === item);
+    if (result === undefined) {
+      this.id = null;
+      return;
+    }
 
     this.id = result.id;
     this.name = result.name;
